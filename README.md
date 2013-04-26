@@ -5,3 +5,5 @@
 	<webcam></webcam>
 
 This project uses [Yeoman](http://yeoman.io/).
+
+The code is licensed under the MIT License. @see LICENSE file
