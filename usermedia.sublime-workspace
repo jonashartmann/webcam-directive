@@ -5,7 +5,23 @@
 		[
 			[
 				"con",
-				"controller"
+				"console"
+			],
+			[
+				"ace",
+				"onAccessDenied"
+			],
+			[
+				"webcae",
+				"webcam-loader"
+			],
+			[
+				"err",
+				"error"
+			],
+			[
+				"video",
+				"videoElem"
 			],
 			[
 				"han",
@@ -66,10 +82,6 @@
 			[
 				"usin",
 				"usingAccount"
-			],
-			[
-				"err",
-				"err"
 			],
 			[
 				"au",
@@ -407,9 +419,21 @@
 	"build_system": "Packages/JSHint/JSHint.sublime-build",
 	"command_palette":
 	{
-		"height": 196.0,
+		"height": 265.0,
 		"selected_items":
 		[
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"spaces",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"tr",
+				"Trailing Spaces: Delete Trailing Spaces"
+			],
 			[
 				"insta",
 				"Package Control: Install Package"
@@ -445,10 +469,6 @@
 			[
 				"tabs",
 				"Indentation: Convert to Tabs"
-			],
-			[
-				"tr",
-				"Trailing Spaces: Delete Trailing Spaces"
 			],
 			[
 				"inde",
@@ -527,7 +547,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 424.0
+		"width": 512.0
 	},
 	"console":
 	{
@@ -544,6 +564,15 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Jonas/gitProjects/usermedia/app/views/main.html",
+		"/C/Users/Jonas/gitProjects/usermedia/app/scripts/directives/webcam.js",
+		"/C/Users/Jonas/gitProjects/usermedia/app/scripts/controllers/main.js",
+		"/C/Users/Jonas/gitProjects/usermedia/README",
+		"/C/Users/Jonas/gitProjects/usermedia/app/scripts/nav-usermedia.js",
+		"/C/Users/Jonas/gitProjects/usermedia/.gitignore",
+		"/C/Users/Jonas/gitProjects/usermedia/LICENSE",
+		"/C/Users/Jonas/gitProjects/usermedia/app/index.html",
+		"/C/Users/Jonas/gitProjects/usermedia/server.js",
 		"/C/Users/Jonas/gitProjects/the-node/app/client/view/jade/index.jade",
 		"/C/Users/Jonas/gitProjects/the-node/app/server/persistence/entry.js",
 		"/C/Users/Jonas/gitProjects/the-node/app/client/public/style/src/global.css",
@@ -672,6 +701,16 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"cont",
+			");\n",
+			"alertShy",
+			"alertLoading",
+			"video",
+			"streaming",
+			"video",
+			"div",
+			"scope",
+			"static",
 			"DiaryCtrl",
 			"apply",
 			"handlers",
@@ -807,6 +846,14 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"indeht",
+				"app/index.html"
+			],
+			[
+				"webca",
+				"app/scripts/directives/webcam.js"
+			],
 			[
 				"inja",
 				"client/view/jade/index.jade"
@@ -1310,14 +1357,6 @@
 			[
 				"login.js",
 				"Public/scripts/src/login.js"
-			],
-			[
-				"",
-				"public/scripts/src/content.js"
-			],
-			[
-				"content.js",
-				"public/scripts/src/content.js"
 			]
 		],
 		"width": 0.0

@@ -3,5 +3,5 @@ dist
 .tmp
 .sass-cache
 app/components
-*.sublime-project
-*.sublime-workspace
+usermedia.sublime-project
+usermedia.sublime-workspace
