@@ -1,7 +1,18 @@
 <div class="hero-unit">
   <h1>Webcam test</h1>
-  <webcam on-stream="onStream(stream,video)"
-  		on-access-denied="onError(err)"
-  		on-streaming="onSuccess(video)">
-  </webcam>
+  <button class="btn btn-large" ng-click="getPattern()">Pattern it!</button>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="span6">
+			<webcam class="layer layer-0" on-stream="onStream(stream,video)"
+				on-access-denied="onError(err)"
+				on-streaming="onSuccess(video)">
+			</webcam>
+			<canvas id="mask" class="layer layer-1"></canvas>
+		</div>
+		<div class="span6">
+			<canvas id="pattern" class=""></canvas>
+		</div>
+	</div>
 </div>

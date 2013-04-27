@@ -1,1 +1,14 @@
 /* Will be compiled down to a single stylesheet with your sass files */
+.layer {
+	position: absolute;
+	top: 35%;
+	left: 33%;
+}
+
+.layer-0 {
+	z-index: 10;
+}
+
+.layer-1 {
+	z-index: 20;
+}
