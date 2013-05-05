@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('usermediaApp', [])
+angular.module('webcamDemo', ['usermedia'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

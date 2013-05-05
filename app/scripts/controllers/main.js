@@ -1,59 +1,53 @@
 'use strict';
 
-angular.module('usermediaApp')
+angular.module('webcamDemo')
   .controller('MainCtrl', function ($scope) {
-    var xPat = 150,
-        yPat = 100,
-        wPat = 25,
-        hPat = 25,
-        _canvas = null,
-        _video = null,
+    var _video = null,
         patData = null;
 
-    $scope.mono = true;
+    $scope.showDemos = false;
+    $scope.edgeDetection = false;
+    $scope.mono = false;
     $scope.invert = false;
-    $scope.bias = 0;
-    $scope.factor = 1;
 
+    $scope.patOpts = {x: 0, y: 0, w: 25, h: 25};
+
+    $scope.webcamError = false;
     $scope.onError = function (err) {
-        document.querySelector('.webcam').innerHTML =
-            '<div class="alert alert-error">'+
-            '<span>Webcam could not be started. Did you give access to it?</span>'+
-            '</div>';
+        $scope.$apply(
+            function() {
+                $scope.webcamError = err;
+            }
+        );
     };
 
-    $scope.onSuccess = function (video) {
-        console.log('Streaming: ', video);
-        _video = video;
-        _canvas = document.querySelector('#mask');
-        var width = video.width,
-            height = video.height;
-
-        if (_canvas) {
-            _canvas.width = width;
-            _canvas.height = height;
-            var ctx = _canvas.getContext('2d');
-
-            console.log('Filling rectange ' + '[' + width + ',' + height + ']');
-            ctx.strokeStyle = 'green';
-            ctx.strokeRect(xPat, yPat, wPat + 1, hPat + 1);
-            ctx.clearRect(xPat, yPat, wPat, hPat);
-        }
+    $scope.onSuccess = function (videoElem) {
+        // The video element contains the captured camera data
+        _video = videoElem;
+        $scope.$apply(function() {
+            $scope.patOpts.w = _video.width;
+            $scope.patOpts.h = _video.height;
+            $scope.showDemos = true;
+        });
     };
 
-    $scope.onStream = function (stream, video) {
-        console.log(stream, video);
+    $scope.onStream = function (stream, videoElem) {
+        // You could do something manually with the stream.
     };
 
-    $scope.getPattern = function getPattern() {
-        if (_canvas) {
-            console.log('Pattern!');
+    /**
+     * Make a snapshot of the camera data and show it in another canvas.
+     */
+    $scope.makeSnapshot = function makeSnapshot() {
+        if (_video) {
+            var patCanvas = document.querySelector('#snapshot');
+            if (!patCanvas) return;
 
-            var idata = getVideoData(xPat, yPat, wPat, hPat);
-            var patCanvas = document.querySelector('#pattern');
-            patCanvas.width = _canvas.width;
-            patCanvas.height = _canvas.height;
+            patCanvas.width = _video.width;
+            patCanvas.height = _video.height;
             var ctxPat = patCanvas.getContext('2d');
+
+            var idata = getVideoData($scope.patOpts.x, $scope.patOpts.y, $scope.patOpts.w, $scope.patOpts.h);
             ctxPat.putImageData(idata, 0, 0);
 
             patData = idata;
@@ -62,20 +56,20 @@ angular.module('usermediaApp')
 
     var getVideoData = function getVideoData(x, y, w, h) {
         var hiddenCanvas = document.createElement('canvas');
-        hiddenCanvas.width = _canvas.width;
-        hiddenCanvas.height = _canvas.height;
+        hiddenCanvas.width = _video.width;
+        hiddenCanvas.height = _video.height;
         var ctx = hiddenCanvas.getContext('2d');
-        ctx.drawImage(_video, 0, 0, _canvas.width, _canvas.height);
+        ctx.drawImage(_video, 0, 0, _video.width, _video.height);
         return ctx.getImageData(x, y, w, h);
     };
 
-    var getPixelData = function getPixelData(data, width, col, row, offset) {
-        return data[((row*(width*4)) + (col*4)) + offset];
-    };
+    // var getPixelData = function getPixelData(data, width, col, row, offset) {
+    //     return data[((row*(width*4)) + (col*4)) + offset];
+    // };
 
-    var setPixelData = function setPixelData(data, width, col, row, offset, value) {
-        data[((row*(width*4)) + (col*4)) + offset] = value;
-    };
+    // var setPixelData = function setPixelData(data, width, col, row, offset, value) {
+    //     data[((row*(width*4)) + (col*4)) + offset] = value;
+    // };
 
     (function() {
       var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
@@ -85,21 +79,18 @@ angular.module('usermediaApp')
 
     var start = Date.now();
 
-    function searchPattern(timestamp) {
+    /**
+     * Apply a simple edge detection filter.
+     */
+    function applyEffects(timestamp) {
       var progress = timestamp - start;
 
-      if (_video && _canvas && patData) {
-        var ctx = _canvas.getContext('2d'),
-            videoData = getVideoData(0, 0, _video.width, _video.height);
-
-        var patCanvas = document.querySelector('#pattern');
-        var ctxPat = patCanvas.getContext('2d');
-        ctxPat.putImageData(patData, 0, 0);
-
-        // Apply edge detection to pattern
-        Pixastic.process(patCanvas, "edges", {mono:$scope.mono, invert:$scope.invert});
+      if (_video && $scope.edgeDetection) {
+        var videoData = getVideoData(0, 0, _video.width, _video.height);
 
         var resCanvas = document.querySelector('#result');
+        if (!resCanvas) return;
+
         resCanvas.width = _video.width;
         resCanvas.height = _video.height;
         var ctxRes = resCanvas.getContext('2d');
@@ -107,22 +98,12 @@ angular.module('usermediaApp')
 
         // apply edge detection to video image
         Pixastic.process(resCanvas, "edges", {mono:$scope.mono, invert:$scope.invert});
-
-        // for (var i = 0, len = data.length; i < len; i+=4) {
-        //     for (var j = 0, plen = pData.length; j < plen; j+=4) {
-        //         var r = data[i];
-        //         var g = data[i+1];
-        //         var b = data[i+2];
-        //         var a = data[i+3];
-        //     }
-        // }
-
       }
 
-      if (progress < 2000) {
-        requestAnimationFrame(searchPattern);
+      if (progress < 20000) {
+        requestAnimationFrame(applyEffects);
       }
     }
 
-    requestAnimationFrame(searchPattern);
+    requestAnimationFrame(applyEffects);
   });
