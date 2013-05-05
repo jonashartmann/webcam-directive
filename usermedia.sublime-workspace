@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"le",
+				"length"
+			],
+			[
+				"pat",
+				"patCanvas"
+			],
+			[
+				"res",
+				"resCanvas"
+			],
+			[
+				"video",
+				"videoData"
+			],
+			[
+				"vide",
+				"videoData"
+			],
+			[
 				"con",
 				"console"
 			],
@@ -18,10 +38,6 @@
 			[
 				"err",
 				"error"
-			],
-			[
-				"video",
-				"videoElem"
 			],
 			[
 				"han",
@@ -415,20 +431,36 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "app/views/main.html",
+			"settings":
+			{
+				"buffer_size": 1195,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/styles/main.css",
+			"settings":
+			{
+				"buffer_size": 182,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "Packages/JSHint/JSHint.sublime-build",
 	"command_palette":
 	{
-		"height": 265.0,
+		"height": 392.0,
 		"selected_items":
 		[
 			[
-				"html",
-				"Set Syntax: HTML"
+				"space",
+				"Indentation: Convert to Spaces"
 			],
 			[
-				"spaces",
-				"Indentation: Convert to Spaces"
+				"tra",
+				"Trailing Spaces: Delete Trailing Spaces"
 			],
 			[
 				"tr",
@@ -437,6 +469,14 @@
 			[
 				"insta",
 				"Package Control: Install Package"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"spaces",
+				"Indentation: Convert to Spaces"
 			],
 			[
 				"ins",
@@ -480,10 +520,6 @@
 			],
 			[
 				"rtr",
-				"Trailing Spaces: Delete Trailing Spaces"
-			],
-			[
-				"tra",
 				"Trailing Spaces: Delete Trailing Spaces"
 			],
 			[
@@ -564,14 +600,18 @@
 	},
 	"file_history":
 	[
-		"/C/Users/Jonas/gitProjects/usermedia/app/views/main.html",
-		"/C/Users/Jonas/gitProjects/usermedia/app/scripts/directives/webcam.js",
 		"/C/Users/Jonas/gitProjects/usermedia/app/scripts/controllers/main.js",
+		"/C/Users/Jonas/gitProjects/usermedia/app/scripts/directives/webcam.js",
+		"/C/Users/Jonas/gitProjects/usermedia/app/styles/main.css",
+		"/C/Users/Jonas/gitProjects/usermedia/app/index.html",
+		"/C/Users/Jonas/gitProjects/usermedia/app/views/main.html",
+		"/C/Users/Jonas/gitProjects/usermedia/node_modules/grunt-contrib-uglify/node_modules/uglify-js/lib/mozilla-ast.js",
+		"/C/Users/Jonas/gitProjects/usermedia/README.md",
+		"/C/Users/Jonas/gitProjects/usermedia/node_modules/grunt-contrib-imagemin/node_modules/jpegtran-bin/node_modules/tar/examples/reader.js",
+		"/C/Users/Jonas/gitProjects/usermedia/.gitignore",
 		"/C/Users/Jonas/gitProjects/usermedia/README",
 		"/C/Users/Jonas/gitProjects/usermedia/app/scripts/nav-usermedia.js",
-		"/C/Users/Jonas/gitProjects/usermedia/.gitignore",
 		"/C/Users/Jonas/gitProjects/usermedia/LICENSE",
-		"/C/Users/Jonas/gitProjects/usermedia/app/index.html",
 		"/C/Users/Jonas/gitProjects/usermedia/server.js",
 		"/C/Users/Jonas/gitProjects/the-node/app/client/view/jade/index.jade",
 		"/C/Users/Jonas/gitProjects/the-node/app/server/persistence/entry.js",
@@ -701,6 +741,32 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"max",
+			"min",
+			"factor",
+			"bias",
+			"h",
+			"w",
+			"filterY",
+			"filterX",
+			"X",
+			"x",
+			"data",
+			"Data",
+			"data",
+			"Data",
+			"data",
+			"Data",
+			"data",
+			"Data",
+			"data",
+			"Data",
+			"getPixel",
+			"step",
+			"canvas",
+			";\n",
+			"height",
+			"width",
 			"cont",
 			");\n",
 			"alertShy",
@@ -792,8 +858,62 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "app/views/main.html",
+					"settings":
+					{
+						"buffer_size": 1195,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								504,
+								504
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/styles/main.css",
+					"settings":
+					{
+						"buffer_size": 182,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								113,
+								113
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -846,6 +966,58 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"macss",
+				"app/styles/main.css"
+			],
+			[
+				"indht",
+				"app/index.html"
+			],
+			[
+				"maincss",
+				"app/styles/main.css"
+			],
+			[
+				"mainjs",
+				"app/scripts/controllers/main.js"
+			],
+			[
+				"majs",
+				"node_modules/grunt-contrib-uglify/node_modules/uglify-js/lib/mozilla-ast.js"
+			],
+			[
+				"webjs",
+				"app/scripts/directives/webcam.js"
+			],
+			[
+				"maiht",
+				"app/views/main.html"
+			],
+			[
+				"re",
+				"README.md"
+			],
+			[
+				"reade",
+				"node_modules/grunt-contrib-imagemin/node_modules/jpegtran-bin/node_modules/tar/examples/reader.js"
+			],
+			[
+				"we",
+				"app/scripts/directives/webcam.js"
+			],
+			[
+				"inde",
+				"app/index.html"
+			],
+			[
+				"mainht",
+				"app/views/main.html"
+			],
+			[
+				".gitig",
+				".gitignore"
+			],
 			[
 				"indeht",
 				"app/index.html"
@@ -1305,58 +1477,6 @@
 			[
 				"content.",
 				"Views/content.jade"
-			],
-			[
-				"footer",
-				"Public/style/src/footer.css"
-			],
-			[
-				"entry.js",
-				"Public/scripts/src/entry.js"
-			],
-			[
-				"en",
-				"Persistence/entry.js"
-			],
-			[
-				"entry.css",
-				"Public/style/src/entry.css"
-			],
-			[
-				"entry",
-				"Views/entry.jade"
-			],
-			[
-				"contet",
-				"Public/scripts/src/content.js"
-			],
-			[
-				"pagecss",
-				"Public/style/src/page.css"
-			],
-			[
-				"entrcss",
-				"Public/style/src/entry.css"
-			],
-			[
-				"page.css",
-				"Public/style/src/page.css"
-			],
-			[
-				"content.css",
-				"Public/style/src/content.css"
-			],
-			[
-				"login.",
-				"Views/login.jade"
-			],
-			[
-				"login.s",
-				"Public/scripts/src/login.js"
-			],
-			[
-				"login.js",
-				"Public/scripts/src/login.js"
 			]
 		],
 		"width": 0.0
@@ -1366,6 +1486,10 @@
 		"height": 500.0,
 		"selected_items":
 		[
+			[
+				"node",
+				"/C/Users/Jonas/gitProjects/the-node/node.sublime-project"
+			],
 			[
 				"",
 				"/C/Users/Jonas/gitProjects/angular-tutorial/tutorial.sublime-project"
@@ -1380,7 +1504,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
-	"side_bar_width": 174.0,
+	"side_bar_visible": true,
+	"side_bar_width": 220.0,
 	"status_bar_visible": true
 }

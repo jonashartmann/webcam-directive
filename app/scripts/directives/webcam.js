@@ -3,7 +3,7 @@
 angular.module('usermediaApp')
   .directive('webcam', function () {
   	var removeLoader = function removeLoader() {
-		document.querySelector('.webcam-loader').style.display = "none";
+		  document.querySelector('.webcam-loader').style.display = "none";
     };
 
     return {
@@ -71,7 +71,7 @@ angular.module('usermediaApp')
         );
 
         /* Start streaming the webcam data when the video element can play
-		 * It will do it only once
+		     * It will do it only once
          */
         videoElem.addEventListener('canplay', function(ev){
           if (!$scope.streaming) {

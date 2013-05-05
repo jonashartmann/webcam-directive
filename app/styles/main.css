@@ -1,8 +1,8 @@
 /* Will be compiled down to a single stylesheet with your sass files */
 .layer {
 	position: absolute;
-	top: 35%;
-	left: 33%;
+	bottom: 0;
+	right: 0;
 }
 
 .layer-0 {

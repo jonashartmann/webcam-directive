@@ -2,13 +2,18 @@
 
 angular.module('usermediaApp')
   .controller('MainCtrl', function ($scope) {
-    var xPat = 0,
-        yPat = 0,
-        wPat = 100,
-        hPat = 100,
+    var xPat = 150,
+        yPat = 100,
+        wPat = 25,
+        hPat = 25,
         _canvas = null,
         _video = null,
         patData = null;
+
+    $scope.mono = true;
+    $scope.invert = false;
+    $scope.bias = 0;
+    $scope.factor = 1;
 
     $scope.onError = function (err) {
         document.querySelector('.webcam').innerHTML =
@@ -64,6 +69,14 @@ angular.module('usermediaApp')
         return ctx.getImageData(x, y, w, h);
     };
 
+    var getPixelData = function getPixelData(data, width, col, row, offset) {
+        return data[((row*(width*4)) + (col*4)) + offset];
+    };
+
+    var setPixelData = function setPixelData(data, width, col, row, offset, value) {
+        data[((row*(width*4)) + (col*4)) + offset] = value;
+    };
+
     (function() {
       var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                                   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -76,31 +89,34 @@ angular.module('usermediaApp')
       var progress = timestamp - start;
 
       if (_video && _canvas && patData) {
-        // console.log('Searching for pattern');
         var ctx = _canvas.getContext('2d'),
-            videoData = getVideoData(0, 0, _video.width, _video.height),
-            data = videoData.data;
-
-        for (var i = 0, len = data.length; i < len; i+=4) {
-            var r = data[i];
-            var g = data[i+1];
-            var b = data[i+2];
-            var a = data[i+3];
-
-            // Makes the image gray scale only
-            var brightness = (3*r+4*g+b)>>>3;
-            data[i] = brightness;
-            data[i+1] = brightness;
-            data[i+2] = brightness;
-
-            // TODO: search pattern
-        }
+            videoData = getVideoData(0, 0, _video.width, _video.height);
 
         var patCanvas = document.querySelector('#pattern');
         var ctxPat = patCanvas.getContext('2d');
-        ctxPat.putImageData(videoData, 0, 0);
-      } else {
-        // console.log('Pattern not ready yet');
+        ctxPat.putImageData(patData, 0, 0);
+
+        // Apply edge detection to pattern
+        Pixastic.process(patCanvas, "edges", {mono:$scope.mono, invert:$scope.invert});
+
+        var resCanvas = document.querySelector('#result');
+        resCanvas.width = _video.width;
+        resCanvas.height = _video.height;
+        var ctxRes = resCanvas.getContext('2d');
+        ctxRes.putImageData(videoData, 0, 0);
+
+        // apply edge detection to video image
+        Pixastic.process(resCanvas, "edges", {mono:$scope.mono, invert:$scope.invert});
+
+        // for (var i = 0, len = data.length; i < len; i+=4) {
+        //     for (var j = 0, plen = pData.length; j < plen; j+=4) {
+        //         var r = data[i];
+        //         var g = data[i+1];
+        //         var b = data[i+2];
+        //         var a = data[i+3];
+        //     }
+        // }
+
       }
 
       if (progress < 2000) {
