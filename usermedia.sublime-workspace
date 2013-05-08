@@ -4,12 +4,20 @@
 		"selected_items":
 		[
 			[
-				"le",
-				"length"
+				"edge",
+				"edgeDetection"
+			],
+			[
+				"re",
+				"requestAnimationFrame"
 			],
 			[
 				"pat",
-				"patCanvas"
+				"patOpts"
+			],
+			[
+				"le",
+				"length"
 			],
 			[
 				"res",
@@ -435,16 +443,48 @@
 			"file": "app/views/main.html",
 			"settings":
 			{
-				"buffer_size": 1195,
+				"buffer_size": 2526,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/scripts/controllers/main.js",
+			"settings":
+			{
+				"buffer_size": 3376,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/scripts/directives/webcam.js",
+			"settings":
+			{
+				"buffer_size": 3744,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "app/styles/main.css",
 			"settings":
 			{
-				"buffer_size": 182,
+				"buffer_size": 145,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/scripts/app.js",
+			"settings":
+			{
+				"buffer_size": 274,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/index.html",
+			"settings":
+			{
+				"buffer_size": 1969,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -455,15 +495,15 @@
 		"selected_items":
 		[
 			[
+				"tr",
+				"Trailing Spaces: Delete Trailing Spaces"
+			],
+			[
 				"space",
 				"Indentation: Convert to Spaces"
 			],
 			[
 				"tra",
-				"Trailing Spaces: Delete Trailing Spaces"
-			],
-			[
-				"tr",
 				"Trailing Spaces: Delete Trailing Spaces"
 			],
 			[
@@ -583,7 +623,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 512.0
+		"width": 424.0
 	},
 	"console":
 	{
@@ -600,12 +640,13 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Jonas/gitProjects/usermedia/app/scripts/app.js",
+		"/C/Users/Jonas/gitProjects/usermedia/node_modules/grunt-contrib-uglify/node_modules/uglify-js/lib/mozilla-ast.js",
+		"/C/Users/Jonas/gitProjects/usermedia/app/styles/main.css",
 		"/C/Users/Jonas/gitProjects/usermedia/app/scripts/controllers/main.js",
 		"/C/Users/Jonas/gitProjects/usermedia/app/scripts/directives/webcam.js",
-		"/C/Users/Jonas/gitProjects/usermedia/app/styles/main.css",
 		"/C/Users/Jonas/gitProjects/usermedia/app/index.html",
 		"/C/Users/Jonas/gitProjects/usermedia/app/views/main.html",
-		"/C/Users/Jonas/gitProjects/usermedia/node_modules/grunt-contrib-uglify/node_modules/uglify-js/lib/mozilla-ast.js",
 		"/C/Users/Jonas/gitProjects/usermedia/README.md",
 		"/C/Users/Jonas/gitProjects/usermedia/node_modules/grunt-contrib-imagemin/node_modules/jpegtran-bin/node_modules/tar/examples/reader.js",
 		"/C/Users/Jonas/gitProjects/usermedia/.gitignore",
@@ -741,6 +782,34 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"removeLoader",
+			"img",
+			"getPixelData",
+			"h2",
+			"pattern",
+			"getPattern",
+			"_canvas",
+			"searchPattern",
+			"$scope.streaming",
+			"h2",
+			"onerr",
+			"onErr",
+			"onAccessDenied",
+			"video",
+			"_patOpts",
+			"patOpts",
+			"X",
+			"patOpts",
+			"hPat",
+			"patte",
+			"Patte",
+			"patte",
+			"wPat",
+			"xPat",
+			"yPat",
+			"xPat",
+			"bias",
+			"factor",
 			"max",
 			"min",
 			"factor",
@@ -858,7 +927,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -866,20 +935,21 @@
 					"file": "app/views/main.html",
 					"settings":
 					{
-						"buffer_size": 1195,
+						"buffer_size": 2526,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								504,
-								504
+								87,
+								87
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
@@ -890,18 +960,74 @@
 				},
 				{
 					"buffer": 1,
-					"file": "app/styles/main.css",
+					"file": "app/scripts/controllers/main.js",
 					"settings":
 					{
-						"buffer_size": 182,
+						"buffer_size": 3376,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								113,
-								113
+								3262,
+								3262
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1771.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/scripts/directives/webcam.js",
+					"settings":
+					{
+						"buffer_size": 3744,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2282,
+								2282
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1308.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/styles/main.css",
+					"settings":
+					{
+						"buffer_size": 145,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								142,
+								142
 							]
 						],
 						"settings":
@@ -910,6 +1036,62 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/scripts/app.js",
+					"settings":
+					{
+						"buffer_size": 274,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								31,
+								41
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/index.html",
+					"settings":
+					{
+						"buffer_size": 1969,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								776,
+								776
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 88.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -967,16 +1149,16 @@
 		"selected_items":
 		[
 			[
-				"macss",
-				"app/styles/main.css"
-			],
-			[
-				"indht",
-				"app/index.html"
+				"app",
+				"app/scripts/app.js"
 			],
 			[
 				"maincss",
 				"app/styles/main.css"
+			],
+			[
+				"web",
+				"app/scripts/directives/webcam.js"
 			],
 			[
 				"mainjs",
@@ -985,6 +1167,18 @@
 			[
 				"majs",
 				"node_modules/grunt-contrib-uglify/node_modules/uglify-js/lib/mozilla-ast.js"
+			],
+			[
+				"mainht",
+				"app/views/main.html"
+			],
+			[
+				"macss",
+				"app/styles/main.css"
+			],
+			[
+				"indht",
+				"app/index.html"
 			],
 			[
 				"webjs",
@@ -1009,10 +1203,6 @@
 			[
 				"inde",
 				"app/index.html"
-			],
-			[
-				"mainht",
-				"app/views/main.html"
 			],
 			[
 				".gitig",
@@ -1073,10 +1263,6 @@
 			[
 				"basecon",
 				"server/controller/base-controller.js"
-			],
-			[
-				"app",
-				"client/app.js"
 			],
 			[
 				"dictr",
@@ -1473,10 +1659,6 @@
 			[
 				"header",
 				"Public/style/src/header.css"
-			],
-			[
-				"content.",
-				"Views/content.jade"
 			]
 		],
 		"width": 0.0
@@ -1505,6 +1687,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 220.0,
+	"side_bar_width": 243.0,
 	"status_bar_visible": true
 }
