@@ -3,15 +3,20 @@
         <h1>Webcam directive demo</h1>
     </div>
     <div class="center">
-        <a class="btn btn-large" href="https://github.com/jonashartmann/webcam-demo">
+        <a class="btn btn-large btn-primary" href="https://github.com/jonashartmann/webcam-demo">
             <i class="icon-github"></i>&nbsp;Source on Github
+        </a>
+        <a href="https://raw.github.com/jonashartmann/webcam-demo/master/app/scripts/directives/webcam.js" class="btn btn-large btn-success download">
+            <i class="icon-download"></i>&nbsp;Download
         </a>
     </div>
 </div>
 
 <div class="row">
     <div class="span6">
-        <p>Usage</p>
+        <p>Add module "usermedia" as dependency</p>
+        <pre>angular.module('myapp', ['usermedia']);</pre>
+        <p>Then in the HTML</p>
         <pre>&lt;webcam&gt;&lt;/webcam&gt;</pre>
         <p>With callbacks</p>
         <pre>
@@ -34,7 +39,7 @@
     </div>
 </div>
 
-<div ng-show="showDemos">
+<div class="demos" ng-show="showDemos">
     <h1 style="margin-top: 2.5em;">Capture video data</h1>
     <div class="row">
         <div class="span6">
