@@ -1,0 +1,8 @@
+/* Will be compiled down to a single stylesheet with your sass files */
+.center {
+	text-align: center;
+}
+
+.hero-unit h1 {
+	margin-bottom: 15px;
+}
