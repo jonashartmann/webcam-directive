@@ -14,8 +14,8 @@
 
 <div class="row">
     <div class="span6">
-        <p>Add module "usermedia" as dependency</p>
-        <pre>angular.module('myapp', ['usermedia']);</pre>
+        <p>Add module "webcam" as dependency</p>
+        <pre>angular.module('myapp', ['webcam']);</pre>
         <p>Then in the HTML</p>
         <pre>&lt;webcam&gt;&lt;/webcam&gt;</pre>
         <p>With callbacks</p>
@@ -25,7 +25,7 @@
         on-streaming="onSuccess(video)"&gt;
 &lt;/webcam&gt;</pre>
         <p>With placeholder</p>
-        <pre>&lt;webcam placeholder="'/img/ajax-loader.gif'"&gt;</pre>
+        <pre>&lt;webcam placeholder="'img/ajax-loader.gif'"&gt;</pre>
     </div>
     <div class="span6">
         <webcam class="well pull-right" on-stream="onStream(stream,video)"
