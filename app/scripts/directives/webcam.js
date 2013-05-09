@@ -14,7 +14,7 @@
   }
 })();
 
-angular.module('usermedia', [])
+angular.module('webcam', [])
   .directive('webcam', function () {
     return {
       template:
