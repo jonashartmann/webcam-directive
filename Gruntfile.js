@@ -1,5 +1,5 @@
 'use strict';
-var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
+// var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
 var mountFolder = function (connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
@@ -171,7 +171,7 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          '<%= yeoman.dist %>/scripts/scripts.js': [
+          '<%= yeoman.dist %>/scripts/webcam.min.js': [
             '<%= yeoman.dist %>/scripts/scripts.js'
           ],
         }
@@ -239,17 +239,17 @@ module.exports = function (grunt) {
     'test',
     // 'coffee',
     // 'compass:dist',
-    'useminPrepare',
-    'imagemin',
-    'cssmin',
-    'htmlmin',
+    // 'useminPrepare',
+    // 'imagemin',
+    // 'cssmin',
+    // 'htmlmin',
     'concat',
     'copy',
-    'cdnify',
-    'ngmin',
+    // 'cdnify',
+    // 'ngmin',
     'uglify',
-    'rev',
-    'usemin'
+    // 'rev',
+    // 'usemin'
   ]);
 
   grunt.registerTask('default', ['build']);
