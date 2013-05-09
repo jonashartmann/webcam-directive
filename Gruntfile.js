@@ -8,10 +8,14 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
+  var component = require('./component.json'),
+    version = component.version;
+
   // configurable paths
   var yeomanConfig = {
     app: 'app',
-    dist: 'dist'
+    dist: 'dist',
+    appVersion: version
   };
 
   try {
@@ -38,12 +42,12 @@ module.exports = function (grunt) {
       }
     },
     clean: {
-      dist: {
+      gen: {
         files: [{
           dot: true,
           src: [
             '.tmp',
-            '<%= yeoman.dist %>/*',
+            '<%= yeoman.dist %>/scripts',
             '!<%= yeoman.dist %>/.git*'
           ]
         }]
@@ -171,7 +175,7 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          '<%= yeoman.dist %>/scripts/webcam.min.js': [
+          '<%= yeoman.dist %>/<%= yeoman.appVersion %>/webcam.min.js': [
             '<%= yeoman.dist %>/scripts/scripts.js'
           ],
         }
@@ -234,22 +238,13 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'clean:dist',
+    'clean:gen',
     'jshint',
     'test',
-    // 'coffee',
-    // 'compass:dist',
-    // 'useminPrepare',
-    // 'imagemin',
-    // 'cssmin',
-    // 'htmlmin',
     'concat',
     'copy',
-    // 'cdnify',
-    // 'ngmin',
     'uglify',
-    // 'rev',
-    // 'usemin'
+    'clean:gen',
   ]);
 
   grunt.registerTask('default', ['build']);
