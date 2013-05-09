@@ -3,7 +3,7 @@
 describe('Controller: MainCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('usermediaApp'));
+  beforeEach(module('webcamDemo'));
 
   var MainCtrl,
     scope;
@@ -16,7 +16,7 @@ describe('Controller: MainCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+  it('should exist', function () {
+    expect(MainCtrl).not.toBe(null);
   });
 });

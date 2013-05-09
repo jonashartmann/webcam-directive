@@ -11,59 +11,59 @@
   // Checks if getUserMedia is available on the client browser
   window.hasUserMedia = function hasUserMedia() {
     return navigator.getMedia ? true : false;
-  }
+  };
 })();
 
 angular.module('webcam', [])
   .directive('webcam', function () {
     return {
       template:
-      	'<div class="webcam" ng-transclude>' +
-		      '<video class="webcam-live"></video>' +
-      	'</div>',
+        '<div class="webcam" ng-transclude>' +
+          '<video class="webcam-live"></video>' +
+        '</div>',
       restrict: 'E',
       replace: true,
       transclude: true,
       scope:
       {
-      	onError: '&',
-      	onStream: '&',
-      	onStreaming: '&',
+        onError: '&',
+        onStream: '&',
+        onStreaming: '&',
         placeholder: '='
       },
-      link: function postLink($scope, element, attrs) {
+      link: function postLink($scope, element) {
         // called when camera stream is loaded
         var onSuccess = function onSuccess(stream) {
           // Firefox supports a src object
           if (navigator.mozGetUserMedia) {
-              videoElem.mozSrcObject = stream;
-            } else {
-              var vendorURL = window.URL || window.webkitURL;
-              videoElem.src = vendorURL.createObjectURL(stream);
-            }
+            videoElem.mozSrcObject = stream;
+          } else {
+            var vendorURL = window.URL || window.webkitURL;
+            videoElem.src = vendorURL.createObjectURL(stream);
+          }
 
-            /* Start playing the video to show the stream from the webcam*/
-            videoElem.play();
+          /* Start playing the video to show the stream from the webcam*/
+          videoElem.play();
 
-            /* Call custom callback */
-            if ($scope.onStream) {
-              $scope.onStream({stream: stream, video: videoElem});
-            }
+          /* Call custom callback */
+          if ($scope.onStream) {
+            $scope.onStream({stream: stream, video: videoElem});
+          }
         };
 
         // called when any error happens
         var onFailure = function onFailure(err) {
-            removeLoader();
-            if (console && console.log) {
-              console.log("The following error occured: ", err);
-            }
+          removeLoader();
+          if (console && console.log) {
+            console.log('The following error occured: ', err);
+          }
 
-            /* Call custom callback */
-            if ($scope.onError) {
-              $scope.onError({err:err});
-            }
+          /* Call custom callback */
+          if ($scope.onError) {
+            $scope.onError({err:err});
+          }
 
-            return;
+          return;
         };
 
         if ($scope.placeholder) {
@@ -85,7 +85,7 @@ angular.module('webcam', [])
             height = element.height = 0;
 
         // Check the availability of getUserMedia across supported browsers
-        if (!hasUserMedia()) {
+        if (!window.hasUserMedia()) {
           onFailure({code:-1, msg: 'Browser does not support getUserMedia.'});
           return;
         }
@@ -93,19 +93,19 @@ angular.module('webcam', [])
         var videoElem = element.find('video')[0];
 
         navigator.getMedia (
-            // ask only for video
-            {
-              video: true,
-              audio: false
-            },
-            onSuccess,
-            onFailure
+          // ask only for video
+          {
+            video: true,
+            audio: false
+          },
+          onSuccess,
+          onFailure
         );
 
         /* Start streaming the webcam data when the video element can play
-		     * It will do it only once
+         * It will do it only once
          */
-        videoElem.addEventListener('canplay', function(ev){
+        videoElem.addEventListener('canplay', function() {
           if (!isStreaming) {
             height = (videoElem.videoHeight / ((videoElem.videoWidth/width))) || 250;
             videoElem.setAttribute('width', width);
@@ -117,7 +117,7 @@ angular.module('webcam', [])
 
             /* Call custom callback */
             if ($scope.onStreaming) {
-            	$scope.onStreaming({video:videoElem});
+              $scope.onStreaming({video:videoElem});
             }
           }
         }, false);
