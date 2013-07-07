@@ -1,3 +1,3 @@
 [submodule "components/webcam-directive"]
 	path = components/webcam-directive
-	url = git@github.com:jonashartmann/webcam-directive.git
+	url = https://github.com/jonashartmann/webcam-directive.git
