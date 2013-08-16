@@ -1,7 +1,8 @@
 <div class="hero-unit">
     <div class="center">
         <h1>Webcam directive demo</h1>
-        <h3>Depends on <a href="http://angularjs.org">angularjs</a></h3>
+        <h3>Depends on <a href="http://angularjs.org" target="_blank">angularjs</a></h3>
+        <p>Directive based on the <a href="http://www.webrtc.org/" target="_blank">WebRTC</a> API. Specifically the <pre>navigator.getUserMedia()</pre><a href="http://caniuse.com/stream" target="_blank">Which browsers are supported?</a></p>
     </div>
     <div class="center">
         <a class="btn btn-large btn-primary" href="https://github.com/jonashartmann/webcam-directive">
@@ -13,7 +14,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row-fluid">
     <div class="span6">
         <p>Add module "webcam" as dependency</p>
         <pre>angular.module('myapp', ['webcam']);</pre>
@@ -42,7 +43,7 @@
 
 <div class="demos" ng-show="showDemos">
     <h1 style="margin-top: 2.5em;">Capture video data</h1>
-    <div class="row">
+    <div class="row-fluid">
         <div class="span6">
             <label>Pos X <input type="number" ng-model="patOpts.x"></label>
             <label>Pos Y <input type="number" ng-model="patOpts.y"></label>
@@ -56,12 +57,12 @@
     </div>
 
     <h1 style="margin-top: 2.5em;">Play with the video in real time</h1>
-    <div class="row">
+    <div class="row-fluid">
         <div class="span6">
             <label class="checkbox">Detect edges<input type="checkbox" ng-model="edgeDetection"></label>
             <label class="checkbox">Mono<input type="checkbox" ng-disabled="!edgeDetection" ng-model="mono"></label>
             <label class="checkbox">Invert<input type="checkbox" ng-disabled="!edgeDetection" ng-model="invert"></label>
-            <a href="http://www.pixastic.com/lib/">Made with Pixastic</a>
+            <a href="http://www.pixastic.com/lib/" target="_blank">Made with Pixastic</a>
         </div>
         <div class="span6">
             <canvas id="result" class="well pull-right"></canvas>
