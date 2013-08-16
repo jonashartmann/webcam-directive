@@ -1,6 +1,25 @@
 /* Will be compiled down to a single stylesheet with your sass files */
+body {
+	padding-top: 20px;
+	padding-bottom: 40px;
+}
+
+.masthead .apps {
+	display: inline;
+}
+
+.masthead .apps a {
+	text-decoration: none;
+}
+
 .center {
 	text-align: center;
+}
+
+/* Custom container */
+.container-narrow {
+	margin: 0 auto;
+	max-width: 700px;
 }
 
 .hero-unit h1 {
