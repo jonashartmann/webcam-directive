@@ -18,9 +18,7 @@ angular.module('webcam', [])
   .directive('webcam', function () {
     return {
       template:
-        '<div class="webcam" ng-transclude>' +
-          '<video class="webcam-live"></video>' +
-        '</div>',
+        '<div class="webcam" ng-transclude></div>',
       restrict: 'E',
       replace: true,
       transclude: true,
@@ -66,6 +64,11 @@ angular.module('webcam', [])
           return;
         };
 
+        var videoElem = document.createElement('video');
+        videoElem.setAttribute('class', 'webcam-live');
+        videoElem.setAttribute('autoplay', '');
+        element.append(videoElem);
+
         if ($scope.placeholder) {
           var placeholder = document.createElement('img');
           placeholder.class = 'webcam-loader';
@@ -89,8 +92,6 @@ angular.module('webcam', [])
           onFailure({code:-1, msg: 'Browser does not support getUserMedia.'});
           return;
         }
-
-        var videoElem = element.find('video')[0];
 
         navigator.getMedia (
           // ask only for video
