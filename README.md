@@ -24,23 +24,34 @@ The minified file can be found inside the dist folder.
 ## Installation
 
 #### Using script tag
-	<script type="text/javascript" src="webcam.min.js"></script>
+```html
+<script type="text/javascript" src="webcam.min.js"></script>
+```
 
 ## Usage
 
 #### Add module "webcam" as dependency
-    angular.module('myapp', ['webcam']);
+```js
+angular.module('myapp', ['webcam']);
+```
 
 #### Then just use the new element
-    <webcam></webcam>
+```
+<webcam></webcam>
+```
 
 #### Callbacks
-	<webcam on-stream="onStream(stream,video)"
+```js
+<webcam on-stream="onStream(stream,video)"
 	        on-access-denied="onError(err)"
 	        on-streaming="onSuccess(video)">
-	</webcam>
+		</webcam>
+```
+
 #### Custom placeholder to be shown while loading the webcam
-    <webcam placeholder="'img/ajax-loader.gif'">
+```js
+<webcam placeholder="'img/ajax-loader.gif'">
+```
 
 ## Technologies used in this project
 
