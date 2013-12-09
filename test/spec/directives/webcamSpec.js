@@ -1,6 +1,6 @@
-'use strict';
-
+/* jshint undef:false */
 describe('Directive: webcam', function () {
+  'use strict';
 
   var element;
 
