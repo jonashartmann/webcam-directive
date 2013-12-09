@@ -14,6 +14,8 @@ describe('Directive: webcam', function () {
 
   it('should create a video element', function () {
     var video = element.find('video');
-    expect(video).not.toBe(null);
+    expect(video.length).toBe(1);
+    expect(video[0].getAttribute('class')).toBe('webcam-live');
+    expect(video[0].getAttribute('autoplay')).toBe('');
   });
 });
