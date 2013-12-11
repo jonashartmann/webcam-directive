@@ -43,7 +43,7 @@ angular.module('myapp', ['webcam']);
 #### Callbacks
 ```js
 <webcam on-stream="onStream(stream,video)"
-	        on-access-denied="onError(err)"
+	        on-error="onError(err)"
 	        on-streaming="onSuccess(video)">
 		</webcam>
 ```
