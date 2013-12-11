@@ -71,7 +71,7 @@ angular.module('webcam', [])
 
         if ($scope.placeholder) {
           var placeholder = document.createElement('img');
-          placeholder.class = 'webcam-loader';
+          placeholder.setAttribute('class', 'webcam-loader');
           placeholder.src = $scope.placeholder;
           element.append(placeholder);
         }
