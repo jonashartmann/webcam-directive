@@ -30,8 +30,21 @@ angular.module('webcam', [])
         placeholder: '='
       },
       link: function postLink($scope, element) {
+        var videoElem, videoStream;
+
+        $scope.$on('$destroy', function() {
+          if (!!videoStream && typeof videoStream.stop === 'function') {
+            videoStream.stop();
+          }
+          if (!!videoElem) {
+            videoElem.src = null;
+          }
+        });
+
         // called when camera stream is loaded
         var onSuccess = function onSuccess(stream) {
+          videoStream = stream;
+
           // Firefox supports a src object
           if (navigator.mozGetUserMedia) {
             videoElem.mozSrcObject = stream;
@@ -64,7 +77,7 @@ angular.module('webcam', [])
           return;
         };
 
-        var videoElem = document.createElement('video');
+        videoElem = document.createElement('video');
         videoElem.setAttribute('class', 'webcam-live');
         videoElem.setAttribute('autoplay', '');
         element.append(videoElem);
