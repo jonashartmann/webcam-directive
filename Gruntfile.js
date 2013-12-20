@@ -60,7 +60,8 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js'
+        '<%= yeoman.app %>/scripts/{,*/}*.js',
+        'test/spec/{,*/}*.js'
       ]
     },
     karma: {
@@ -224,6 +225,7 @@ module.exports = function (grunt) {
   // ]);
 
   grunt.registerTask('test', [
+    'jshint',
     'clean:server',
     // 'coffee',
     // 'compass',
@@ -239,7 +241,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:gen',
-    'jshint',
     'test',
     'concat',
     'copy',
