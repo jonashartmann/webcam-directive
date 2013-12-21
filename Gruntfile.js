@@ -248,5 +248,5 @@ module.exports = function (grunt) {
     'clean:gen',
   ]);
 
-  grunt.registerTask('default', ['build']);
+  grunt.registerTask('default', ['test']);
 };
