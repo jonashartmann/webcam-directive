@@ -26,12 +26,23 @@
     "matchdep": "~0.1.1",
     "grunt-google-cdn": "~0.1.1",
     "grunt-ngmin": "~0.0.2",
-    "grunt-cli": "~0.1.11"
+    "grunt-cli": "~0.1.11",
+    "karma-script-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.1",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.2",
+    "karma-jasmine": "~0.1.5",
+    "requirejs": "~2.1.9",
+    "karma-requirejs": "~0.2.0",
+    "karma-coffee-preprocessor": "~0.1.1",
+    "karma": "~0.10.8",
+    "karma-phantomjs-launcher": "~0.1.1",
+    "phantomjs": "~1.9.2-6"
   },
   "engines": {
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt ci"
   }
 }

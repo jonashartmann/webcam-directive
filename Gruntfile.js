@@ -69,6 +69,11 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       },
+      ci: {
+        configFile: 'karma.conf.js',
+        singleRun: true,
+        browsers: ['PhantomJS']
+      },
       watch: {
         configFile: 'karma.conf.js',
         autoWatch: true
@@ -227,10 +232,15 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'jshint',
     'clean:server',
-    // 'coffee',
-    // 'compass',
     'connect:test',
     'karma:unit'
+  ]);
+
+  grunt.registerTask('ci', [
+    'jshint',
+    'clean:server',
+    'connect:test',
+    'karma:ci'
   ]);
 
   grunt.registerTask('watch', [
