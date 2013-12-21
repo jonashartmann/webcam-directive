@@ -1,5 +1,6 @@
 {
   "name": "webcam",
+  "author": "Jonas Hartmann",
   "version": "1.0.0",
   "dependencies": {},
   "devDependencies": {
@@ -24,9 +25,13 @@
     "grunt-open": "~0.2.0",
     "matchdep": "~0.1.1",
     "grunt-google-cdn": "~0.1.1",
-    "grunt-ngmin": "~0.0.2"
+    "grunt-ngmin": "~0.0.2",
+    "grunt-cli": "~0.1.11"
   },
   "engines": {
     "node": ">=0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
   }
 }
