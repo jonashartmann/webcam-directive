@@ -61,13 +61,20 @@ describe('Directive: webcam', function () {
   );
 
   describe('on success', function () {
-    var video;
+    var video,
+        streamSpy;
 
     beforeEach(function () {
       video = element.find('video')[0];
       spyOn(video, 'play');
+      streamSpy = jasmine.createSpyObj('stream', ['stop']);
+
+      // createObjectURL throws a Type Error if passed a spy
+      var vendorURL = window.URL || window.webkitURL;
+      spyOn(vendorURL, 'createObjectURL').andReturn('abc');
+
       var args = mediaSpy.mostRecentCall.args;
-      args[1](null); // call success function
+      args[1](streamSpy); // call success function
     });
 
     it('should play the video element', function() {
@@ -75,9 +82,23 @@ describe('Directive: webcam', function () {
     });
 
     it('should call the stream callback', function() {
-      expect(onStreamSpy).toHaveBeenCalled();
+      expect(onStreamSpy).toHaveBeenCalledWith(streamSpy, video);
     });
 
+    describe('scope destruction', function() {
+      beforeEach(function() {
+        expect(video.src).not.toBe('');
+        element.scope().$destroy();
+      });
+
+      it('should stop the video stream', function() {
+        runs(function() { expect(streamSpy.stop).toHaveBeenCalled(); });
+      });
+
+      it('should clear the video element src', function() {
+        runs(function() { expect(video.src).toBe(''); });
+      });
+    });
   });
 
   describe('on failure', function () {
