@@ -1,5 +1,7 @@
 # Webcam manipulation with HTML5
 
+[![Build Status](https://travis-ci.org/jonashartmann/webcam-directive.png?branch=master)](https://travis-ci.org/jonashartmann/webcam-directive)
+
 This is an [AngularJS][] directive that can be added as a module to your own app.
 
 Demos can be found at [http://jonashartmann.github.io/webcam-directive](http://jonashartmann.github.io/webcam-directive)
@@ -12,9 +14,10 @@ Demos can be found at [http://jonashartmann.github.io/webcam-directive](http://j
 		npm install
 3. Build/test with grunt
 
-		grunt [build|test]
+		grunt test
+4. Make a Pull Request
 
-The minified file can be found inside the dist folder.
+Or just help by creating issues.
 
 ## Download
 
