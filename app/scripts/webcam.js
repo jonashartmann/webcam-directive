@@ -17,8 +17,7 @@
 angular.module('webcam', [])
   .directive('webcam', function () {
     return {
-      template:
-        '<div class="webcam" ng-transclude></div>',
+      template: '<div class="webcam" ng-transclude></div>',
       restrict: 'E',
       replace: true,
       transclude: true,
@@ -91,7 +90,7 @@ angular.module('webcam', [])
 
         var removeLoader = function removeLoader() {
           if (placeholder) {
-            placeholder.remove();
+            angular.element(placeholder).remove();
           }
         };
 
@@ -106,22 +105,16 @@ angular.module('webcam', [])
           return;
         }
 
-        navigator.getMedia (
-          // ask only for video
-          {
-            video: true,
-            audio: false
-          },
-          onSuccess,
-          onFailure
-        );
+        var mediaConstraint = { video: true, audio: false };
+        navigator.getMedia(mediaConstraint, onSuccess, onFailure);
 
         /* Start streaming the webcam data when the video element can play
          * It will do it only once
          */
         videoElem.addEventListener('canplay', function() {
           if (!isStreaming) {
-            height = (videoElem.videoHeight / ((videoElem.videoWidth/width))) || 250;
+            var scale = width / videoElem.videoWidth;
+            height = (videoElem.videoHeight * scale) || 250;
             videoElem.setAttribute('width', width);
             videoElem.setAttribute('height', height);
             isStreaming = true;

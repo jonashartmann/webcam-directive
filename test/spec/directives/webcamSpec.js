@@ -2,6 +2,13 @@
 describe('Directive: webcam', function () {
   'use strict';
 
+  var ua = navigator.userAgent,
+      phantomjs = /phantom/i.test(ua);
+
+  if (phantomjs) {
+    console.log('PhantomJS detected; video.play will be mocked');
+  }
+
   var element,
       mediaSpy,
       onStreamSpy,
@@ -66,13 +73,20 @@ describe('Directive: webcam', function () {
 
     beforeEach(function () {
       video = element.find('video')[0];
-      spyOn(video, 'play');
+      if (phantomjs) { // phantomjs doesn't support video
+        video.play = jasmine.createSpy('play');
+      } else {
+        spyOn(video, 'play');
+      }
+
       streamSpy = jasmine.createSpyObj('stream', ['stop']);
 
       // createObjectURL throws a Type Error if passed a spy
       var vendorURL = window.URL || window.webkitURL;
       spyOn(vendorURL, 'createObjectURL').andReturn('abc');
+    });
 
+    beforeEach(function() {
       var args = mediaSpy.mostRecentCall.args;
       args[1](streamSpy); // call success function
     });
@@ -87,7 +101,7 @@ describe('Directive: webcam', function () {
 
     describe('scope destruction', function() {
       beforeEach(function() {
-        expect(video.src).not.toBe('');
+        expect(video.src).toBeTruthy(); // non-empty string
         element.scope().$destroy();
       });
 
@@ -96,7 +110,7 @@ describe('Directive: webcam', function () {
       });
 
       it('should clear the video element src', function() {
-        runs(function() { expect(video.src).toBe(''); });
+        runs(function() { expect(video.src).toBeFalsy(); }); // empty or null
       });
     });
   });
@@ -106,9 +120,20 @@ describe('Directive: webcam', function () {
 
     beforeEach(function () {
       video = element.find('video')[0];
-      spyOn(video, 'play').andCallThrough();
+      if (phantomjs) { // phantomjs doesn't support video
+        video.play = jasmine.createSpy('play');
+      } else {
+        spyOn(video, 'play').andCallThrough();
+      }
+    });
+
+    beforeEach(function() {
       var args = mediaSpy.mostRecentCall.args;
       args[2]('Fake Error'); // call failure function
+    });
+
+    it('should not play the video element', function() {
+      expect(video.play).not.toHaveBeenCalled();
     });
 
     it('should remove the placeholder', function () {
