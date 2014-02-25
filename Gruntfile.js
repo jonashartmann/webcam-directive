@@ -72,7 +72,7 @@ module.exports = function (grunt) {
       ci: {
         configFile: 'karma.conf.js',
         singleRun: true,
-        browsers: ['Firefox']
+        browsers: ['PhantomJS']
       },
       watch: {
         configFile: 'karma.conf.js',
