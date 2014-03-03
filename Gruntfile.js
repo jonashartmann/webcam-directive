@@ -8,7 +8,7 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-  var component = require('./component.json'),
+  var component = require('./bower.json'),
     version = component.version;
 
   // configurable paths
@@ -17,10 +17,6 @@ module.exports = function (grunt) {
     dist: 'dist',
     appVersion: version
   };
-
-  try {
-    yeomanConfig.app = require('./component.json').appPath || yeomanConfig.app;
-  } catch (e) {}
 
   grunt.initConfig({
     yeoman: yeomanConfig,
