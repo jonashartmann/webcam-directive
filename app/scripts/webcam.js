@@ -36,7 +36,7 @@ angular.module('webcam', [])
             videoStream.stop();
           }
           if (!!videoElem) {
-            videoElem.src = null;
+            delete videoElem.src;
           }
         });
 
