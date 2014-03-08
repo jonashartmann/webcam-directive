@@ -1,6 +1,7 @@
 # Webcam manipulation with HTML5
 
 [![Build Status](https://travis-ci.org/jonashartmann/webcam-directive.png?branch=master)](https://travis-ci.org/jonashartmann/webcam-directive)
+[![Code Climate](https://codeclimate.com/github/jonashartmann/webcam-directive.png)](https://codeclimate.com/github/jonashartmann/webcam-directive)
 
 This is an [AngularJS][] directive that can be added as a module to your own app.
 
