@@ -22,7 +22,12 @@ Or just help by creating issues.
 
 ## Download
 
-#### The current version can be found inside the dist/ folder of this repo.
+#### Using [Bower](http://bower.io/)
+```shell
+bower install webcam-directive
+```
+
+#### You can also find the current version inside the dist/ folder
 	Ex.: dist/<version_number>/webcam.min.js
 
 ## Installation
