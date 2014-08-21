@@ -33,11 +33,7 @@ angular.module('webcam', [])
       link: function postLink($scope, element) {
         var videoElem, videoStream;
 
-        $scope.$on('$destroy', onDestroy);
-        $scope.$on('START_WEBCAM', startWebcam);
-        $scope.$on('STOP_WEBCAM', stopWebcam);
-
-        function onDestroy() {
+        var onDestroy = function onDestroy() {
           if (!!videoStream && typeof videoStream.stop === 'function') {
             videoStream.stop();
           }
@@ -82,7 +78,7 @@ angular.module('webcam', [])
           return;
         };
 
-        function startWebcam() {
+        var startWebcam = function startWebcam() {
           videoElem = document.createElement('video');
           videoElem.setAttribute('class', 'webcam-live');
           videoElem.setAttribute('autoplay', '');
@@ -135,12 +131,16 @@ angular.module('webcam', [])
               }
             }
           }, false);
-        }
+        };
 
-        function stopWebcam() {
+        var stopWebcam = function stopWebcam() {
           onDestroy();
           videoElem.remove();
-        }
+        };
+
+        $scope.$on('$destroy', onDestroy);
+        $scope.$on('START_WEBCAM', startWebcam);
+        $scope.$on('STOP_WEBCAM', stopWebcam);
 
         startWebcam();
 
