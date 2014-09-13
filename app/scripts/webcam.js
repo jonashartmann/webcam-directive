@@ -26,21 +26,19 @@ angular.module('webcam', [])
         onError: '&',
         onStream: '&',
         onStreaming: '&',
-        placeholder: '=',
-        videoHeight: '=',
-        videoWidth: '='
+        placeholder: '='
       },
       link: function postLink($scope, element) {
         var videoElem, videoStream;
 
-        var onDestroy = function onDestroy() {
+        $scope.$on('$destroy', function() {
           if (!!videoStream && typeof videoStream.stop === 'function') {
             videoStream.stop();
           }
           if (!!videoElem) {
             delete videoElem.src;
           }
-        }
+        });
 
         // called when camera stream is loaded
         var onSuccess = function onSuccess(stream) {
@@ -54,7 +52,7 @@ angular.module('webcam', [])
             videoElem.src = vendorURL.createObjectURL(stream);
           }
 
-          /* Start playing the video to show the stream from the webcam */
+          /* Start playing the video to show the stream from the webcam*/
           videoElem.play();
 
           /* Call custom callback */
@@ -78,72 +76,58 @@ angular.module('webcam', [])
           return;
         };
 
-        var startWebcam = function startWebcam() {
-          videoElem = document.createElement('video');
-          videoElem.setAttribute('class', 'webcam-live');
-          videoElem.setAttribute('autoplay', '');
-          element.append(videoElem);
+        videoElem = document.createElement('video');
+        videoElem.setAttribute('class', 'webcam-live');
+        videoElem.setAttribute('autoplay', '');
+        element.append(videoElem);
 
-          if ($scope.placeholder) {
-            var placeholder = document.createElement('img');
-            placeholder.setAttribute('class', 'webcam-loader');
-            placeholder.src = $scope.placeholder;
-            element.append(placeholder);
+        if ($scope.placeholder) {
+          var placeholder = document.createElement('img');
+          placeholder.setAttribute('class', 'webcam-loader');
+          placeholder.src = $scope.placeholder;
+          element.append(placeholder);
+        }
+
+        var removeLoader = function removeLoader() {
+          if (placeholder) {
+            angular.element(placeholder).remove();
           }
+        };
 
-          var removeLoader = function removeLoader() {
-            if (placeholder) {
-              angular.element(placeholder).remove();
-            }
-          };
-
-          // Default variables
-          var isStreaming = false,
-            width = element.width = $scope.videoWidth || 320,
+        // Default variables
+        var isStreaming = false,
+            width = element.width = 320,
             height = element.height = 0;
 
-          // Check the availability of getUserMedia across supported browsers
-          if (!window.hasUserMedia()) {
-            onFailure({code:-1, msg: 'Browser does not support getUserMedia.'});
-            return;
-          }
+        // Check the availability of getUserMedia across supported browsers
+        if (!window.hasUserMedia()) {
+          onFailure({code:-1, msg: 'Browser does not support getUserMedia.'});
+          return;
+        }
 
-          var mediaConstraint = { video: true, audio: false };
-          navigator.getMedia(mediaConstraint, onSuccess, onFailure);
+        var mediaConstraint = { video: true, audio: false };
+        navigator.getMedia(mediaConstraint, onSuccess, onFailure);
 
-          /* Start streaming the webcam data when the video element can play
-           * It will do it only once
-           */
-          videoElem.addEventListener('canplay', function() {
-            if (!isStreaming) {
-              var scale = width / videoElem.videoWidth;
-              height = (videoElem.videoHeight * scale) || $scope.videoHeight;
-              videoElem.setAttribute('width', width);
-              videoElem.setAttribute('height', height);
-              isStreaming = true;
-              // console.log('Started streaming');
+        /* Start streaming the webcam data when the video element can play
+         * It will do it only once
+         */
+        videoElem.addEventListener('canplay', function() {
+          if (!isStreaming) {
+            var scale = width / videoElem.videoWidth;
+            height = (videoElem.videoHeight * scale) || 250;
+            videoElem.setAttribute('width', width);
+            videoElem.setAttribute('height', height);
+            isStreaming = true;
+            // console.log('Started streaming');
 
-              removeLoader();
+            removeLoader();
 
-              /* Call custom callback */
-              if ($scope.onStreaming) {
-                $scope.onStreaming({video:videoElem});
-              }
+            /* Call custom callback */
+            if ($scope.onStreaming) {
+              $scope.onStreaming({video:videoElem});
             }
-          }, false);
-        };
-
-        var stopWebcam = function stopWebcam() {
-          onDestroy();
-          videoElem.remove();
-        };
-
-        $scope.$on('$destroy', onDestroy);
-        $scope.$on('START_WEBCAM', startWebcam);
-        $scope.$on('STOP_WEBCAM', stopWebcam);
-
-        startWebcam();
-
+          }
+        }, false);
       }
     };
   });
