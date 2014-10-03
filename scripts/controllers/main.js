@@ -1,7 +1,7 @@
-'use strict';
-
 angular.module('webcamDemo')
   .controller('MainCtrl', function ($scope) {
+    'use strict';
+
     var _video = null,
         patData = null;
 
@@ -35,6 +35,7 @@ angular.module('webcamDemo')
         // You could do something manually with the stream.
     };
 
+
     /**
      * Make a snapshot of the camera data and show it in another canvas.
      */
@@ -50,8 +51,18 @@ angular.module('webcamDemo')
             var idata = getVideoData($scope.patOpts.x, $scope.patOpts.y, $scope.patOpts.w, $scope.patOpts.h);
             ctxPat.putImageData(idata, 0, 0);
 
+            sendSnapshotToServer(patCanvas.toDataURL());
+
             patData = idata;
         }
+    };
+
+    /**
+     * Redirect the browser to the URL given.
+     * Used to download the image by passing a dataURL string
+     */
+    $scope.downloadSnapshot = function downloadSnapshot(dataURL) {
+        window.location.href = dataURL;
     };
 
     var getVideoData = function getVideoData(x, y, w, h) {
@@ -61,6 +72,16 @@ angular.module('webcamDemo')
         var ctx = hiddenCanvas.getContext('2d');
         ctx.drawImage(_video, 0, 0, _video.width, _video.height);
         return ctx.getImageData(x, y, w, h);
+    };
+
+    /**
+     * This function could be used to send the image data
+     * to a backend server that expects base64 encoded images.
+     *
+     * In this example, we simply store it in the scope for display.
+     */
+    var sendSnapshotToServer = function sendSnapshotToServer(imgBase64) {
+        $scope.snapshotData = imgBase64;
     };
 
     // var getPixelData = function getPixelData(data, width, col, row, offset) {

@@ -33,3 +33,13 @@ body {
 .download {
 	margin-left: 15px;
 }
+
+.snapshot-data {
+	width: 330px;
+	height: 120px;
+	white-space: normal;
+}
+
+.webcam {
+	margin-top: 22px;
+}
