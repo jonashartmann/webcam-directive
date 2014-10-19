@@ -16,7 +16,7 @@ Demos can be found at [http://jonashartmann.github.io/webcam-directive](http://j
 3. Build/test with grunt
 
 		grunt test
-4. Make a Pull Request
+4. Make a Pull Request (it will only be merged if it passes the Travis build)
 
 Or just help by creating issues.
 
