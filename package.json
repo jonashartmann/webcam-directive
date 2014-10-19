@@ -1,7 +1,7 @@
 {
   "name": "webcam",
   "author": "Jonas Hartmann",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -44,5 +44,6 @@
   },
   "scripts": {
     "test": "grunt ci"
-  }
+  },
+  "repository": "git@github.com:jonashartmann/webcam-directive.git"
 }
