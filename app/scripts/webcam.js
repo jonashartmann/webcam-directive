@@ -31,7 +31,15 @@ angular.module('webcam', [])
         videoWidth: '='
       },
       link: function postLink($scope, element) {
-        var videoElem, videoStream;
+        var videoElem = null,
+            videoStream = null,
+            placeholder = null;
+
+        var _removeDOMElement = function _removeDOMElement(DOMel) {
+          if (DOMel) {
+            angular.element(DOMel).remove();
+          }
+        };
 
         var onDestroy = function onDestroy() {
           if (!!videoStream && typeof videoStream.stop === 'function') {
@@ -40,7 +48,7 @@ angular.module('webcam', [])
           if (!!videoElem) {
             delete videoElem.src;
           }
-        }
+        };
 
         // called when camera stream is loaded
         var onSuccess = function onSuccess(stream) {
@@ -65,7 +73,7 @@ angular.module('webcam', [])
 
         // called when any error happens
         var onFailure = function onFailure(err) {
-          removeLoader();
+          _removeDOMElement(placeholder);
           if (console && console.log) {
             console.log('The following error occured: ', err);
           }
@@ -85,17 +93,11 @@ angular.module('webcam', [])
           element.append(videoElem);
 
           if ($scope.placeholder) {
-            var placeholder = document.createElement('img');
+            placeholder = document.createElement('img');
             placeholder.setAttribute('class', 'webcam-loader');
             placeholder.src = $scope.placeholder;
             element.append(placeholder);
           }
-
-          var removeLoader = function removeLoader() {
-            if (placeholder) {
-              angular.element(placeholder).remove();
-            }
-          };
 
           // Default variables
           var isStreaming = false,
@@ -123,7 +125,7 @@ angular.module('webcam', [])
               isStreaming = true;
               // console.log('Started streaming');
 
-              removeLoader();
+              _removeDOMElement(placeholder);
 
               /* Call custom callback */
               if ($scope.onStreaming) {
