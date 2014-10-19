@@ -13,7 +13,7 @@
     "Jonas Hartmann (jonas.hartmann@ymail.com)"
   ],
   "description": "Angularjs directive to access the webcam",
-  "main": "app/scripts/webcam.js",
+  "main": "dist/1.1.0/webcam.min.js",
   "keywords": [
     "webcam",
     "directive",
