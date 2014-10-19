@@ -27,5 +27,10 @@
     "test/components",
     "test",
     "tests"
+    "*.md",
+    "Gruntfile.js",
+    "package.json",
+    "karma.conf.js",
+    "karma-e2e.conf.js"
   ]
 }
