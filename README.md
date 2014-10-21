@@ -27,8 +27,8 @@ Or just help by creating issues.
 bower install webcam-directive
 ```
 
-#### You can also find the current version inside the dist/ folder
-	Ex.: dist/<version_number>/webcam.min.js
+#### There is a tag for each version, with the built javascript file inside the _dist_ directory
+	Ex.: dist/webcam.min.js
 
 ## Installation
 
