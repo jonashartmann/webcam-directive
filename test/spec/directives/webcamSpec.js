@@ -13,7 +13,8 @@ describe('Directive: webcam', function () {
       mediaSpy,
       onStreamSpy,
       onErrorSpy,
-      onSuccessSpy;
+      onSuccessSpy,
+      rootScope;
 
   beforeEach(module('webcam'));
 
@@ -28,11 +29,13 @@ describe('Directive: webcam', function () {
     $rootScope.onStream = onStreamSpy;
     $rootScope.onError = onErrorSpy;
     $rootScope.onSuccess = onSuccessSpy;
+    rootScope = $rootScope;
     element = angular.element(
       '<webcam '+
-      'on-stream="onStream(stream,video)" '+
+      'on-stream="onStream(stream)" '+
       'on-error="onError(err)" '+
-      'on-streaming="onSuccess(video)" '+
+      'on-streaming="onSuccess()" '+
+      'video="video" ' +
       'placeholder="\'http://www.example.com/\'">'+
       '</webcam>');
     element = $compile(element)($rootScope);
@@ -93,10 +96,11 @@ describe('Directive: webcam', function () {
 
     it('should play the video element', function() {
       expect(video.play).toHaveBeenCalled();
+      expect(rootScope.video).not.toBeNull();
     });
 
     it('should call the stream callback', function() {
-      expect(onStreamSpy).toHaveBeenCalledWith(streamSpy, video);
+      expect(onStreamSpy).toHaveBeenCalledWith(streamSpy);
     });
 
     describe('scope destruction', function() {

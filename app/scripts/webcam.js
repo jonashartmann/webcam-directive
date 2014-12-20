@@ -28,7 +28,8 @@ angular.module('webcam', [])
         onStreaming: '&',
         placeholder: '=',
         videoHeight: '=',
-        videoWidth: '='
+        videoWidth: '=',
+        video: '=',
       },
       link: function postLink($scope, element) {
         var videoElem = null,
@@ -64,10 +65,11 @@ angular.module('webcam', [])
 
           /* Start playing the video to show the stream from the webcam */
           videoElem.play();
+          $scope.video = videoElem;
 
           /* Call custom callback */
           if ($scope.onStream) {
-            $scope.onStream({stream: stream, video: videoElem});
+            $scope.onStream({stream: stream});
           }
         };
 
@@ -123,13 +125,14 @@ angular.module('webcam', [])
               videoElem.setAttribute('width', width);
               videoElem.setAttribute('height', height);
               isStreaming = true;
-              // console.log('Started streaming');
+
+              $scope.video = videoElem;
 
               _removeDOMElement(placeholder);
 
               /* Call custom callback */
               if ($scope.onStreaming) {
-                $scope.onStreaming({video:videoElem});
+                $scope.onStreaming();
               }
             }
           }, false);
