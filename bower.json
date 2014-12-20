@@ -26,7 +26,7 @@
     "bower_components",
     "test/components",
     "test",
-    "tests"
+    "tests",
     "*.md",
     "Gruntfile.js",
     "package.json",
