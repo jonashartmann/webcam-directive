@@ -51,9 +51,10 @@ angular.module('myapp', ['webcam']);
 
 #### Callbacks
 ```js
-<webcam on-stream="onStream(stream,video)"
+<webcam on-stream="onStream(stream)"
 	        on-error="onError(err)"
-	        on-streaming="onSuccess(video)">
+	        on-streaming="onSuccess()"
+          video="your.video">
 		</webcam>
 ```
 
