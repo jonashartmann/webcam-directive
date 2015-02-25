@@ -21,9 +21,9 @@ angular.module('webcamDemo')
         );
     };
 
-    $scope.onSuccess = function (videoElem) {
+    $scope.onSuccess = function () {
         // The video element contains the captured camera data
-        _video = videoElem;
+        _video = $scope.mywebcam;
         $scope.$apply(function() {
             $scope.patOpts.w = _video.width;
             $scope.patOpts.h = _video.height;
@@ -31,7 +31,7 @@ angular.module('webcamDemo')
         });
     };
 
-    $scope.onStream = function (stream, videoElem) {
+    $scope.onStream = function (stream) {
         // You could do something manually with the stream.
     };
 

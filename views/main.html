@@ -24,17 +24,19 @@
         <pre>&lt;webcam&gt;&lt;/webcam&gt;</pre>
         <p>With callbacks</p>
         <pre>
-&lt;webcam on-stream="onStream(stream,video)"
+&lt;webcam on-stream="onStream(stream)"
         on-access-denied="onError(err)"
-        on-streaming="onSuccess(video)"&gt;
+        on-streaming="onSuccess()"
+        video="mywebcam"&gt;
 &lt;/webcam&gt;</pre>
         <p>With placeholder</p>
         <pre>&lt;webcam placeholder="'img/ajax-loader.gif'"&gt;</pre>
     </div>
     <div class="span6">
-        <webcam class="well-small pull-right" on-stream="onStream(stream,video)"
+        <webcam class="well-small pull-right" on-stream="onStream(stream)"
             on-error="onError(err)"
-            on-streaming="onSuccess(video)"
+            on-streaming="onSuccess()"
+            video="mywebcam"
             placeholder="'img/ajax-loader.gif'">
             <div class="alert alert-error" ng-show="webcamError">
                 <span>Webcam could not be started. Did you give access to it?</span>
