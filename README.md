@@ -32,7 +32,7 @@ angular.module('myapp', ['webcam']);
 ```
 
 #### Then add the new element in HTML
-```
+```html
 <webcam></webcam>
 ```
 
