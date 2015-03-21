@@ -7,19 +7,6 @@ This is an [AngularJS][] directive that can be added as a module to your own app
 
 Demos can be found at [http://jonashartmann.github.io/webcam-directive](http://jonashartmann.github.io/webcam-directive)
 
-## Contribute
-
-1. Fork and clone this repository
-2. Install dependencies
-
-		npm install
-3. Build/test with grunt
-
-		grunt test
-4. Make a Pull Request (it will only be merged if it passes the Travis build)
-
-Or just help by creating issues.
-
 ## Download
 
 #### Using [Bower](http://bower.io/)
@@ -62,6 +49,19 @@ angular.module('myapp', ['webcam']);
 ```js
 <webcam placeholder="'img/ajax-loader.gif'">
 ```
+
+## Contribute
+
+1. Fork and clone this repository
+2. Install dependencies
+
+    npm install
+3. Build/test with grunt
+
+    grunt test
+4. Make a Pull Request (it will only be merged if it passes the Travis build)
+
+Or just help by creating issues.
 
 ## Technologies used in this project
 
