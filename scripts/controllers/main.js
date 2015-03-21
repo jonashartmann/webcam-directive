@@ -12,6 +12,11 @@ angular.module('webcamDemo')
 
     $scope.patOpts = {x: 0, y: 0, w: 25, h: 25};
 
+    // Setup a channel to receive a video property
+    // with a reference to the video element
+    // See the HTML binding in main.html
+    $scope.channel = {};
+
     $scope.webcamError = false;
     $scope.onError = function (err) {
         $scope.$apply(
@@ -21,9 +26,9 @@ angular.module('webcamDemo')
         );
     };
 
-    $scope.onSuccess = function (videoElem) {
+    $scope.onSuccess = function () {
         // The video element contains the captured camera data
-        _video = videoElem;
+        _video = $scope.channel.video;
         $scope.$apply(function() {
             $scope.patOpts.w = _video.width;
             $scope.patOpts.h = _video.height;
@@ -31,7 +36,7 @@ angular.module('webcamDemo')
         });
     };
 
-    $scope.onStream = function (stream, videoElem) {
+    $scope.onStream = function (stream) {
         // You could do something manually with the stream.
     };
 

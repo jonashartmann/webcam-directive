@@ -4,15 +4,17 @@
         <a class="btn btn-large btn-primary" href="https://github.com/jonashartmann/webcam-directive" target="_blank">
             <i class="icon-github"></i>&nbsp;Source on Github
         </a>
-        <a href="https://raw.github.com/jonashartmann/webcam-directive/1.2.0/dist/webcam.min.js" target="_blank" class="btn btn-large btn-success download">
-            <i class="icon-download-alt icon-large"></i>&nbsp;Download v1.2.0
+        <a href="https://raw.github.com/jonashartmann/webcam-directive/3.0.0/dist/webcam.min.js" target="_blank" class="btn btn-large btn-success download">
+            <i class="icon-download-alt icon-large"></i>&nbsp;Download v3.0.0
         </a>
         <label class="well-small">You can also download it using <a href="http://bower.io">Bower</a></label>
+        <pre>bower install webcam-directive</pre>
         <hr>
     </div>
     <div class="center">
         <h3>Depends on <a href="http://angularjs.org" target="_blank">angularjs</a></h3>
-        <p>Directive based on the <a href="http://www.webrtc.org/" target="_blank">WebRTC</a> API. Specifically the <pre>navigator.getUserMedia()</pre><a href="http://caniuse.com/stream" target="_blank">Which browsers are supported?</a></p>
+        <p>Directive based on the <a href="http://www.webrtc.org/" target="_blank">WebRTC</a> API.<br>
+        <a href="http://caniuse.com/stream" target="_blank">Which browsers are supported?</a></p>
     </div>
 </div>
 
@@ -24,17 +26,24 @@
         <pre>&lt;webcam&gt;&lt;/webcam&gt;</pre>
         <p>With callbacks</p>
         <pre>
-&lt;webcam on-stream="onStream(stream,video)"
+&lt;webcam on-stream="onStream(stream)"
         on-access-denied="onError(err)"
-        on-streaming="onSuccess(video)"&gt;
+        on-streaming="onSuccess()"&gt;
 &lt;/webcam&gt;</pre>
         <p>With placeholder</p>
         <pre>&lt;webcam placeholder="'img/ajax-loader.gif'"&gt;</pre>
+        <p>More usages on
+            <a class="btn btn-info" href="https://github.com/jonashartmann/webcam-directive#usage" target="_blank">
+                <i class="icon-github"></i>&nbsp;Github
+            </a>
+        </p>
     </div>
     <div class="span6">
-        <webcam class="well-small pull-right" on-stream="onStream(stream,video)"
+        <webcam class="well-small pull-right"
+            on-stream="onStream(stream)"
             on-error="onError(err)"
-            on-streaming="onSuccess(video)"
+            on-streaming="onSuccess()"
+            channel="channel"
             placeholder="'img/ajax-loader.gif'">
             <div class="alert alert-error" ng-show="webcamError">
                 <span>Webcam could not be started. Did you give access to it?</span>
