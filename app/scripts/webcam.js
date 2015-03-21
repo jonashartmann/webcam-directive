@@ -1,3 +1,11 @@
+/**
+ * Webcam Directive
+ *
+ * (c) Jonas Hartmann http://jonashartmann.github.io/webcam-directive
+ * License: MIT
+ *
+ * @version: 3.0.0
+ */
 'use strict';
 
 (function() {
@@ -27,14 +35,14 @@ angular.module('webcam', [])
         onStream: '&',
         onStreaming: '&',
         placeholder: '=',
-        videoHeight: '=',
-        videoWidth: '=',
-        video: '=',
+        config: '=channel'
       },
       link: function postLink($scope, element) {
         var videoElem = null,
             videoStream = null,
             placeholder = null;
+
+        $scope.config = $scope.config || {};
 
         var _removeDOMElement = function _removeDOMElement(DOMel) {
           if (DOMel) {
@@ -65,7 +73,7 @@ angular.module('webcam', [])
 
           /* Start playing the video to show the stream from the webcam */
           videoElem.play();
-          $scope.video = videoElem;
+          $scope.config.video = videoElem;
 
           /* Call custom callback */
           if ($scope.onStream) {
@@ -103,7 +111,7 @@ angular.module('webcam', [])
 
           // Default variables
           var isStreaming = false,
-            width = element.width = $scope.videoWidth || 320,
+            width = element.width = $scope.config.videoWidth || 320,
             height = element.height = 0;
 
           // Check the availability of getUserMedia across supported browsers
@@ -121,12 +129,13 @@ angular.module('webcam', [])
           videoElem.addEventListener('canplay', function() {
             if (!isStreaming) {
               var scale = width / videoElem.videoWidth;
-              height = (videoElem.videoHeight * scale) || $scope.videoHeight;
+              height = (videoElem.videoHeight * scale) ||
+                        $scope.config.videoHeight;
               videoElem.setAttribute('width', width);
               videoElem.setAttribute('height', height);
               isStreaming = true;
 
-              $scope.video = videoElem;
+              $scope.config.video = videoElem;
 
               _removeDOMElement(placeholder);
 

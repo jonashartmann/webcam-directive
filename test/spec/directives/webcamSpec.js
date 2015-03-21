@@ -26,6 +26,9 @@ describe('Directive: webcam', function () {
   });
 
   beforeEach(inject(function ($rootScope, $compile) {
+    $rootScope.opts = {
+      // video: null
+    };
     $rootScope.onStream = onStreamSpy;
     $rootScope.onError = onErrorSpy;
     $rootScope.onSuccess = onSuccessSpy;
@@ -35,7 +38,7 @@ describe('Directive: webcam', function () {
       'on-stream="onStream(stream)" '+
       'on-error="onError(err)" '+
       'on-streaming="onSuccess()" '+
-      'video="video" ' +
+      'channel="opts"' +
       'placeholder="\'http://www.example.com/\'">'+
       '</webcam>');
     element = $compile(element)($rootScope);
@@ -96,7 +99,13 @@ describe('Directive: webcam', function () {
 
     it('should play the video element', function() {
       expect(video.play).toHaveBeenCalled();
-      expect(rootScope.video).not.toBeNull();
+    });
+
+    it('should make the video element available for the parent scope',
+      function () {
+      expect(rootScope.opts.video).not.toBeUndefined();
+      expect(rootScope.opts.video).not.toBeNull();
+      expect(rootScope.opts.video).toBe(video);
     });
 
     it('should call the stream callback', function() {

@@ -5,7 +5,7 @@
 
 This is an [AngularJS][] directive that can be added as a module to your own app.
 
-Demos can be found at [http://jonashartmann.github.io/webcam-directive](http://jonashartmann.github.io/webcam-directive)
+A complete example can be found at [http://jonashartmann.github.io/webcam-directive](http://jonashartmann.github.io/webcam-directive) (*gh-pages*)
 
 ## Download
 
@@ -31,24 +31,50 @@ bower install webcam-directive
 angular.module('myapp', ['webcam']);
 ```
 
-#### Then just use the new element
+#### Then add the new element in HTML
 ```
 <webcam></webcam>
 ```
 
-#### Callbacks
-```js
-<webcam on-stream="onStream(stream)"
-	        on-error="onError(err)"
-	        on-streaming="onSuccess()"
-          video="your.video">
-		</webcam>
-```
-
-#### Custom placeholder to be shown while loading the webcam
-```js
+## Advanced Usage
+#### Set a custom placeholder image to be shown while loading the stream
+```html
 <webcam placeholder="'img/ajax-loader.gif'">
 ```
+
+#### Callbacks
+```js
+function MyController($scope) {
+  $scope.onError = function (err) {...};
+  $scope.onStream = function (stream) {...};
+  $scope.onSuccess = function () {...};
+}
+```
+```html
+<webcam
+  on-stream="onStream(stream)"
+  on-streaming="onSuccess()"
+  on-error="onError(err)">
+</webcam>
+```
+#### Set a channel to bind data
+```js
+function MyController($scope) {
+  $scope.myChannel = {
+    // the fields below are all optional
+    videoHeight: 800,
+    videoWidth: 600,
+    video: null // Will reference the video element on success
+  };
+}
+```
+```html
+<webcam
+  channel="myChannel">
+</webcam>
+```
+
+
 
 ## Contribute
 
