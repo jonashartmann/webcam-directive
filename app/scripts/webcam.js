@@ -2,6 +2,7 @@
  * Webcam Directive
  *
  * (c) Jonas Hartmann http://jonashartmann.github.io/webcam-directive
+ * (c) Tom Brewe (addition to allow different media sources) June 2015
  * License: MIT
  *
  * @version: 3.0.0
@@ -120,7 +121,27 @@ angular.module('webcam', [])
             return;
           }
 
-          var mediaConstraint = { video: true, audio: false };
+          // Tom Brewe --->
+
+          var mediaConstraint;
+          var video_;
+
+          // if we got to choose a source
+          if($scope.config.source !== undefined) {
+            video_ = { optional: [{sourceId: $scope.config.source.id}] };
+          } else {
+            video_= true;
+          }
+
+            mediaConstraint =
+            {
+              video: video_,
+              audio: false
+            };
+
+          // <--- Tom Brewe
+
+
           navigator.getMedia(mediaConstraint, onSuccess, onFailure);
 
           /* Start streaming the webcam data when the video element can play
