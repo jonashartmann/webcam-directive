@@ -124,20 +124,20 @@ angular.module('webcam', [])
           // Tom Brewe --->
 
           var mediaConstraint;
-          var video_;
+          var videoOptions;
 
           // if we got to choose a source
           if($scope.config.source !== undefined) {
-            video_ = { optional: [{sourceId: $scope.config.source.id}] };
+            videoOptions = { optional: [{sourceId: $scope.config.source.id}] };
           } else {
-            video_= true;
+            videoOptions= true;
           }
 
-            mediaConstraint =
-            {
-              video: video_,
-              audio: false
-            };
+          mediaConstraint =
+          {
+            video: videoOptions,
+            audio: false
+          };
 
           // <--- Tom Brewe
 
