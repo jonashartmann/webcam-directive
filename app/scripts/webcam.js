@@ -51,8 +51,12 @@ angular.module('webcam', [])
         };
 
         var onDestroy = function onDestroy() {
-          if (!!videoStream && typeof videoStream.stop === 'function') {
-            videoStream.stop();
+          if (!!videoStream) {
+            if(typeof videoStream.stop === 'function') {
+              videoStream.stop();
+            } else if (typeof videoStream.getTracks === 'function') {
+              videoStream.getTracks()[0].stop();
+            }
           }
           if (!!videoElem) {
             delete videoElem.src;
