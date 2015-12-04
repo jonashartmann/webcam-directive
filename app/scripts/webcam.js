@@ -51,8 +51,19 @@ angular.module('webcam', [])
         };
 
         var onDestroy = function onDestroy() {
-          if (!!videoStream && typeof videoStream.stop === 'function') {
-            videoStream.stop();
+          if (!!videoStream ) {
+            if(videoStream.getVideoTracks) {
+                // get video track to call stop in it
+                // videoStream.stop() is deprecated and may be removed in the
+                // near future
+                var tracks = videoStream.getVideoTracks();
+                if (tracks && tracks[0] && tracks[0].stop) {
+                    tracks[0].stop();
+                }
+            } else if (videoStream.stop) {
+                // deprecated, may be removed in the near future
+                videoStream.stop();
+            }
           }
           if (!!videoElem) {
             delete videoElem.src;
