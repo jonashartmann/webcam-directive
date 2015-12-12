@@ -1,13 +1,16 @@
 # Webcam manipulation with HTML5
 
+An [AngularJS][] directive to manipulate the webcam.
+
 [![Build Status](https://travis-ci.org/jonashartmann/webcam-directive.png?branch=master)](https://travis-ci.org/jonashartmann/webcam-directive)
 [![Code Climate](https://codeclimate.com/github/jonashartmann/webcam-directive.png)](https://codeclimate.com/github/jonashartmann/webcam-directive)
 
-This is an [AngularJS][] directive that can be added as a module to your own app.
+You can easily add it as a module to your own app.
 
 A complete example can be found at [http://jonashartmann.github.io/webcam-directive](http://jonashartmann.github.io/webcam-directive) (*gh-pages*)
 
 ## Download
+[![NPM](https://nodei.co/npm/webcam.png?compact=true)](https://nodei.co/npm/webcam/)
 
 #### Using [Bower](http://bower.io/)
 ```shell
