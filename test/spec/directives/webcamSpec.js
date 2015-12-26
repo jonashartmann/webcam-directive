@@ -122,7 +122,7 @@ describe('Directive: webcam', function () {
         runs(function() { expect(streamSpy.stop).toHaveBeenCalled(); });
       });
 
-      iit('should stop the video stream using video tracks', function () {
+      it('should stop the video stream using video tracks', function () {
           runs(function () {
             expect(streamSpy.getVideoTracks).toHaveBeenCalled();
           });
