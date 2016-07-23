@@ -118,14 +118,8 @@ describe('Directive: webcam', function () {
         element.scope().$destroy();
       });
 
-      it('should stop the video stream', function() {
-        runs(function() { expect(streamSpy.stop).toHaveBeenCalled(); });
-      });
-
       it('should stop the video stream using video tracks', function () {
-          runs(function () {
-            expect(streamSpy.getVideoTracks).toHaveBeenCalled();
-          });
+          expect(streamSpy.getVideoTracks).toHaveBeenCalled();
         });
 
       it('should clear the video element src', function() {
