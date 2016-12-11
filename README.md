@@ -76,7 +76,7 @@ function MyController($scope) {
   channel="myChannel">
 </webcam>
 ```
-
+### see more examples [wiki](https://github.com/jonashartmann/webcam-directive/wiki)
 
 
 ## Contribute
