@@ -12,6 +12,10 @@ A complete example can be found at [http://jonashartmann.github.io/webcam-direct
 ## Download
 [![NPM](https://nodei.co/npm/webcam.png?compact=true)](https://nodei.co/npm/webcam/)
 
+#### Using [NPM](http://www.npmjs.com)
+```shell
+npm install webcam-directive
+```
 #### Using [Bower](http://bower.io/)
 ```shell
 bower install webcam-directive
