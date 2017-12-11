@@ -14,7 +14,7 @@ A complete example can be found at [http://jonashartmann.github.io/webcam-direct
 
 #### Using [NPM](http://www.npmjs.com)
 ```shell
-npm install webcam-directive
+npm install webcam
 ```
 #### Using [Bower](http://bower.io/)
 ```shell
