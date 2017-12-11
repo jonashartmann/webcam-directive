@@ -85,7 +85,7 @@ describe('Directive: webcam', function () {
         spyOn(video, 'play');
       }
 
-      streamSpy = jasmine.createSpyObj('stream', ['stop']);
+      streamSpy = jasmine.createSpyObj('stream', ['stop', 'getVideoTracks']);
 
       // createObjectURL throws a Type Error if passed a spy
       var vendorURL = window.URL || window.webkitURL;
@@ -118,9 +118,9 @@ describe('Directive: webcam', function () {
         element.scope().$destroy();
       });
 
-      it('should stop the video stream', function() {
-        runs(function() { expect(streamSpy.stop).toHaveBeenCalled(); });
-      });
+      it('should stop the video stream using video tracks', function () {
+          expect(streamSpy.getVideoTracks).toHaveBeenCalled();
+        });
 
       it('should clear the video element src', function() {
         runs(function() { expect(video.src).toBeFalsy(); }); // empty or null
