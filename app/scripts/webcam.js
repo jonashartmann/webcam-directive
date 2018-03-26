@@ -8,13 +8,13 @@
  */
 'use strict';
 
-(function () {
+(function() {
   // GetUserMedia is not yet supported by all browsers
   // Until then, we need to handle the vendor prefixes
-  navigator.getMedia = (navigator.getUserMedia ||
-    navigator.webkitGetUserMedia ||
-    navigator.mozGetUserMedia ||
-    navigator.msGetUserMedia);
+  navigator.getMedia = ( navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia);
 
   // Checks if getUserMedia is available on the client browser
   window.hasUserMedia = function hasUserMedia() {
@@ -32,17 +32,17 @@ angular.module('webcam', [])
       replace: true,
       transclude: true,
       scope:
-        {
-          onError: '&',
-          onStream: '&',
-          onStreaming: '&',
-          placeholder: '=',
-          config: '=channel'
-        },
+      {
+        onError: '&',
+        onStream: '&',
+        onStreaming: '&',
+        placeholder: '=',
+        config: '=channel'
+      },
       link: function postLink($scope, element) {
         var videoElem = null,
-          videoStream = null,
-          placeholder = null;
+            videoStream = null,
+            placeholder = null;
 
         $scope.config = $scope.config || {};
 
@@ -53,9 +53,9 @@ angular.module('webcam', [])
         };
 
         var onDestroy = function onDestroy() {
-          if (!!videoStream) {
+          if (!!videoStream ) {
             var checker = typeof videoStream.getVideoTracks === 'function';
-            if (videoStream.getVideoTracks && checker) {
+            if(videoStream.getVideoTracks && checker) {
               // get video track to call stop in it
               // videoStream.stop() is deprecated and may be removed in the
               // near future
@@ -95,7 +95,7 @@ angular.module('webcam', [])
 
           /* Call custom callback */
           if ($scope.onStream) {
-            $scope.onStream({ stream: stream });
+            $scope.onStream({stream: stream});
           }
         };
 
@@ -108,7 +108,7 @@ angular.module('webcam', [])
 
           /* Call custom callback */
           if ($scope.onError) {
-            $scope.onError({ err: err });
+            $scope.onError({err:err});
           }
 
           return;
@@ -151,11 +151,11 @@ angular.module('webcam', [])
           /* Start streaming the webcam data when the video element can play
            * It will do it only once
            */
-          videoElem.addEventListener('canplay', function () {
+          videoElem.addEventListener('canplay', function() {
             if (!isStreaming) {
               var scale = width / videoElem.videoWidth;
               height = (videoElem.videoHeight * scale) ||
-                $scope.config.videoHeight;
+                        $scope.config.videoHeight;
               videoElem.setAttribute('width', width);
               videoElem.setAttribute('height', height);
               isStreaming = true;
