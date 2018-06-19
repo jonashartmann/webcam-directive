@@ -115,7 +115,6 @@ describe('Directive: webcam', function () {
     describe('scope destruction', function() {
       beforeEach(function() {
         expect(video.srcObject).toBeTruthy(); // non-empty string
-        expect(video.src).toBeTruthy();
         element.scope().$destroy();
       });
 
@@ -125,7 +124,6 @@ describe('Directive: webcam', function () {
 
       it('should clear the video element src', function() {
         runs(function() { expect(video.srcObject).toBeFalsy(); }); // empty or null
-        runs(function() { expect(video.src).toBeFalsy(); });
       });
     });
   });
