@@ -72,6 +72,7 @@ angular.module('webcam', [])
           }
           if (!!videoElem) {
             delete videoElem.src;
+            delete videoElem.srcObject;
           }
         };
 
@@ -125,6 +126,7 @@ angular.module('webcam', [])
             placeholder = document.createElement('img');
             placeholder.setAttribute('class', 'webcam-loader');
             placeholder.src = $scope.placeholder;
+            placeholder.srcObject = $scope.placeholder;
             element.append(placeholder);
           }
 
