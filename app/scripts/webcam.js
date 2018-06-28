@@ -77,7 +77,9 @@ angular.module('webcam', [])
 
           if (!!videoElem) {
             delete videoElem.src;
+            delete videoElem.srcObject;
             videoElem.removeAttribute('src');
+            videoElem.removeAttribute('srcObject');
           }
         };
 
