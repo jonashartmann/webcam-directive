@@ -16,12 +16,16 @@
                         navigator.mozGetUserMedia ||
                         navigator.msGetUserMedia);
 
-  // Checks if getUserMedia is available on the client browser
+  // Latest specs modified how to access it
+  window.hasModernUserMedia = 'mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices;
+  if (window.hasModernUserMedia) {
+    navigator.getMedia = navigator.mediaDevices.getUserMedia;
+  }
+
+  // Checks if feature support is available on the client browser
   window.hasUserMedia = function hasUserMedia() {
     return navigator.getMedia ? true : false;
   };
-
-  window.hasModernUserMedia = 'mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices;
 })();
 
 angular.module('webcam', [])
@@ -83,8 +87,8 @@ angular.module('webcam', [])
 
           if (window.hasModernUserMedia) {
             videoElem.srcObject = stream;
-            // Firefox supports a src object
           } else if (navigator.mozGetUserMedia) {
+            // Firefox supports a src object
             videoElem.mozSrcObject = stream;
           } else {
             var vendorURL = window.URL || window.webkitURL;
@@ -135,7 +139,7 @@ angular.module('webcam', [])
             height = element.height = 0;
 
           // Check the availability of getUserMedia across supported browsers
-          if (!window.hasUserMedia() && !window.hasModernUserMedia) {
+          if (!window.hasUserMedia()) {
             onFailure({ code: -1, msg: 'Browser does not support getUserMedia.' });
             return;
           }
@@ -143,7 +147,8 @@ angular.module('webcam', [])
           var mediaConstraint = { video: true, audio: false };
 
           if (window.hasModernUserMedia) {
-            navigator.mediaDevices.getUserMedia(mediaConstraint)
+            // The spec has changed towards a Promise based interface
+            navigator.getMedia(mediaConstraint)
               .then(onSuccess)
               .catch(onFailure);
           } else {
