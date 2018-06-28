@@ -20,6 +20,8 @@
   window.hasUserMedia = function hasUserMedia() {
     return navigator.getMedia ? true : false;
   };
+
+  window.hasModernUserMedia = 'mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices;
 })();
 
 angular.module('webcam', [])
@@ -79,8 +81,10 @@ angular.module('webcam', [])
         var onSuccess = function onSuccess(stream) {
           videoStream = stream;
 
-          // Firefox supports a src object
-          if (navigator.mozGetUserMedia) {
+          if (window.hasModernUserMedia) {
+            videoElem.srcObject = stream;
+            // Firefox supports a src object
+          } else if (navigator.mozGetUserMedia) {
             videoElem.mozSrcObject = stream;
           } else {
             var vendorURL = window.URL || window.webkitURL;
@@ -131,13 +135,20 @@ angular.module('webcam', [])
             height = element.height = 0;
 
           // Check the availability of getUserMedia across supported browsers
-          if (!window.hasUserMedia()) {
-            onFailure({code:-1, msg: 'Browser does not support getUserMedia.'});
+          if (!window.hasUserMedia() && !window.hasModernUserMedia) {
+            onFailure({ code: -1, msg: 'Browser does not support getUserMedia.' });
             return;
           }
 
           var mediaConstraint = { video: true, audio: false };
-          navigator.getMedia(mediaConstraint, onSuccess, onFailure);
+
+          if (window.hasModernUserMedia) {
+            navigator.mediaDevices.getUserMedia(mediaConstraint)
+              .then(onSuccess)
+              .catch(onFailure);
+          } else {
+            navigator.getMedia(mediaConstraint, onSuccess, onFailure);
+          }
 
           /* Start streaming the webcam data when the video element can play
            * It will do it only once
