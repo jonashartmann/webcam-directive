@@ -72,6 +72,7 @@ angular.module('webcam', [])
           }
           if (!!videoElem) {
             delete videoElem.src;
+            delete videoElem.srcObject;
           }
         };
 
@@ -79,14 +80,15 @@ angular.module('webcam', [])
         var onSuccess = function onSuccess(stream) {
           videoStream = stream;
 
-          if (window.hasModernUserMedia) {
+          try {
             videoElem.srcObject = stream;
-            // Firefox supports a src object
-          } else if (navigator.mozGetUserMedia) {
-            videoElem.mozSrcObject = stream;
-          } else {
-            var vendorURL = window.URL || window.webkitURL;
-            videoElem.src = vendorURL.createObjectURL(stream);
+          } catch(err) {
+            if (navigator.mozGetUserMedia) {
+              videoElem.mozSrcObject = stream;
+            } else {
+              var vendorURL = window.URL || window.webkitURL;
+              videoElem.src = vendorURL.createObjectURL(stream);
+            }
           }
 
           /* Start playing the video to show the stream from the webcam */
@@ -124,6 +126,7 @@ angular.module('webcam', [])
             placeholder = document.createElement('img');
             placeholder.setAttribute('class', 'webcam-loader');
             placeholder.src = $scope.placeholder;
+            placeholder.srcObject = $scope.placeholder;
             element.append(placeholder);
           }
 
