@@ -10,7 +10,7 @@
   },
   "homepage": "https://github.com/jonashartmann/webcam-directive",
   "authors": [
-    "Jonas Hartmann (jonas.hartmann@ymail.com)",
+    "Jonas Hartmann (jonas@hartmann.site)",
     "Florian Verger (github@fverger.fr)"
   ],
   "description": "Angularjs directive to access the webcam",
