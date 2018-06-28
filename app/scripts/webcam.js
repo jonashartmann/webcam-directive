@@ -12,9 +12,9 @@
   // GetUserMedia is not yet supported by all browsers
   // Until then, we need to handle the vendor prefixes
   navigator.getMedia = ( navigator.getUserMedia ||
-                       navigator.webkitGetUserMedia ||
-                       navigator.mozGetUserMedia ||
-                       navigator.msGetUserMedia);
+                        navigator.webkitGetUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.msGetUserMedia);
 
   // Checks if getUserMedia is available on the client browser
   window.hasUserMedia = function hasUserMedia() {
@@ -68,8 +68,10 @@ angular.module('webcam', [])
               videoStream.stop();
             }
           }
+
           if (!!videoElem) {
             delete videoElem.src;
+            videoElem.removeAttribute('src');
           }
         };
 
@@ -98,8 +100,8 @@ angular.module('webcam', [])
         // called when any error happens
         var onFailure = function onFailure(err) {
           _removeDOMElement(placeholder);
-          if (console && console.log) {
-            console.log('The following error occured: ', err);
+          if (console && console.debug) {
+            console.debug('The following error occured: ', err);
           }
 
           /* Call custom callback */

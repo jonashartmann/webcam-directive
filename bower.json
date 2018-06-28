@@ -14,7 +14,7 @@
     "Florian Verger (github@fverger.fr)"
   ],
   "description": "Angularjs directive to access the webcam",
-  "main": "dist/webcam.min.js",
+  "main": "app/scripts/webcam.js",
   "keywords": [
     "webcam",
     "directive",
