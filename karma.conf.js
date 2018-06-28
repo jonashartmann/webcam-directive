@@ -4,6 +4,14 @@
 module.exports = function(config) {
   config.set({
 
+    customLaunchers: {
+      custom_chrome: {
+        base: 'Chrome',
+        flags: ['--use-fake-device-for-media-stream'],
+        displayName: 'Chrome w/ fake device'
+      }
+    },
+
     // base path, that will be used to resolve files and exclude
     basePath: '',
 
@@ -24,7 +32,7 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-      
+
     ],
 
 
@@ -58,7 +66,7 @@ module.exports = function(config) {
     // - Safari (only Mac; has to be installed with `npm install karma-safari-launcher`)
     // - PhantomJS
     // - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
-    browsers: ['Chrome'],
+    browsers: ['custom_chrome'],
 
 
     // If browser does not capture in given timeout [ms], kill it
