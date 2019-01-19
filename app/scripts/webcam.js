@@ -19,7 +19,7 @@
   // Latest specs modified how to access it
   window.hasModernUserMedia = 'mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices;
   if (window.hasModernUserMedia) {
-    navigator.getMedia = navigator.mediaDevices.getUserMedia;
+    navigator.getMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
   }
 
   // Checks if feature support is available on the client browser
