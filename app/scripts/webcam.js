@@ -4,7 +4,7 @@
  * (c) Jonas Hartmann http://jonashartmann.github.io/webcam-directive
  * License: MIT
  *
- * @version: 3.1.0
+ * @version: 3.1.2
  */
 'use strict';
 
@@ -12,16 +12,20 @@
   // GetUserMedia is not yet supported by all browsers
   // Until then, we need to handle the vendor prefixes
   navigator.getMedia = ( navigator.getUserMedia ||
-                       navigator.webkitGetUserMedia ||
-                       navigator.mozGetUserMedia ||
-                       navigator.msGetUserMedia);
+                        navigator.webkitGetUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.msGetUserMedia);
 
-  // Checks if getUserMedia is available on the client browser
+  // Latest specs modified how to access it
+  window.hasModernUserMedia = 'mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices;
+  if (window.hasModernUserMedia) {
+    navigator.getMedia = navigator.mediaDevices.getUserMedia;
+  }
+
+  // Checks if feature support is available on the client browser
   window.hasUserMedia = function hasUserMedia() {
     return navigator.getMedia ? true : false;
   };
-
-  window.hasModernUserMedia = 'mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices;
 })();
 
 angular.module('webcam', [])
@@ -70,8 +74,12 @@ angular.module('webcam', [])
               videoStream.stop();
             }
           }
+
           if (!!videoElem) {
             delete videoElem.src;
+            delete videoElem.srcObject;
+            videoElem.removeAttribute('src');
+            videoElem.removeAttribute('srcObject');
           }
         };
 
@@ -81,8 +89,8 @@ angular.module('webcam', [])
 
           if (window.hasModernUserMedia) {
             videoElem.srcObject = stream;
-            // Firefox supports a src object
           } else if (navigator.mozGetUserMedia) {
+            // Firefox supports a src object
             videoElem.mozSrcObject = stream;
           } else {
             var vendorURL = window.URL || window.webkitURL;
@@ -102,8 +110,8 @@ angular.module('webcam', [])
         // called when any error happens
         var onFailure = function onFailure(err) {
           _removeDOMElement(placeholder);
-          if (console && console.log) {
-            console.log('The following error occured: ', err);
+          if (console && console.debug) {
+            console.debug('The following error occured: ', err);
           }
 
           /* Call custom callback */
@@ -133,7 +141,7 @@ angular.module('webcam', [])
             height = element.height = 0;
 
           // Check the availability of getUserMedia across supported browsers
-          if (!window.hasUserMedia() && !window.hasModernUserMedia) {
+          if (!window.hasUserMedia()) {
             onFailure({ code: -1, msg: 'Browser does not support getUserMedia.' });
             return;
           }
@@ -141,7 +149,8 @@ angular.module('webcam', [])
           var mediaConstraint = { video: true, audio: false };
 
           if (window.hasModernUserMedia) {
-            navigator.mediaDevices.getUserMedia(mediaConstraint)
+            // The spec has changed towards a Promise based interface
+            navigator.getMedia(mediaConstraint)
               .then(onSuccess)
               .catch(onFailure);
           } else {

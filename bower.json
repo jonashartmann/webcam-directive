@@ -1,6 +1,6 @@
 {
   "name": "webcam",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "dependencies": {
     "angular": "~1.4.0"
   },
@@ -10,11 +10,11 @@
   },
   "homepage": "https://github.com/jonashartmann/webcam-directive",
   "authors": [
-    "Jonas Hartmann (jonas.hartmann@ymail.com)",
+    "Jonas Hartmann (jonas@hartmann.site)",
     "Florian Verger (github@fverger.fr)"
   ],
   "description": "Angularjs directive to access the webcam",
-  "main": "dist/webcam.min.js",
+  "main": "app/scripts/webcam.js",
   "keywords": [
     "webcam",
     "directive",

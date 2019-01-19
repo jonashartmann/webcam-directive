@@ -3,7 +3,8 @@ describe('Directive: webcam', function () {
   'use strict';
 
   var ua = navigator.userAgent,
-      phantomjs = /phantom/i.test(ua);
+      phantomjs = /phantom/i.test(ua),
+      hasModernUserMedia = 'mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices;
 
   if (phantomjs) {
     console.log('PhantomJS detected; video.play will be mocked');
@@ -11,6 +12,8 @@ describe('Directive: webcam', function () {
 
   var element,
       mediaSpy,
+      promiseThenSpy,
+      promiseCatchSpy,
       onStreamSpy,
       onErrorSpy,
       onSuccessSpy,
@@ -19,7 +22,19 @@ describe('Directive: webcam', function () {
   beforeEach(module('webcam'));
 
   beforeEach(function createSpy () {
-    navigator.getMedia = mediaSpy = jasmine.createSpy('getMediaSpy');
+    if (hasModernUserMedia) {
+      promiseCatchSpy = {
+        catch: jasmine.createSpy('promiseCatchSpy')
+      };
+
+      promiseThenSpy = {
+        then: jasmine.createSpy('promiseThenSpy').andReturn(promiseCatchSpy),
+      };
+      navigator.getMedia = mediaSpy = jasmine.createSpy('getMediaSpy').andReturn(promiseThenSpy);
+    } else {
+      navigator.getMedia = mediaSpy = jasmine.createSpy('getMediaSpy');
+    }
+
     onStreamSpy = jasmine.createSpy('onStreamSpy');
     onErrorSpy = jasmine.createSpy('onErrorSpy');
     onSuccessSpy = jasmine.createSpy('onSuccessSpy');
@@ -52,8 +67,18 @@ describe('Directive: webcam', function () {
       expect(args[0]).not.toBeNull();
       expect(args[0].video).toBeTruthy();
       expect(args[0].audio).toBeFalsy(); // Needs to be changed if audio support is added
-      expect(typeof args[1]).toBe('function');
-      expect(typeof args[2]).toBe('function');
+
+      if (!hasModernUserMedia) {
+        expect(typeof args[1]).toBe('function');
+        expect(typeof args[2]).toBe('function');
+      } else {
+        expect(promiseThenSpy.then).toHaveBeenCalled();
+        args = promiseThenSpy.then.mostRecentCall.args;
+        expect(typeof args[0]).toBe('function');
+        expect(promiseCatchSpy.catch).toHaveBeenCalled();
+        args = promiseCatchSpy.catch.mostRecentCall.args;
+        expect(typeof args[0]).toBe('function');
+      }
     }
   );
 
@@ -85,7 +110,12 @@ describe('Directive: webcam', function () {
         spyOn(video, 'play');
       }
 
-      streamSpy = jasmine.createSpyObj('stream', ['stop', 'getVideoTracks']);
+      if (!!window.MediaStream) {
+        streamSpy = new window.MediaStream();
+        spyOn(streamSpy, 'getVideoTracks');
+      } else {
+        streamSpy = jasmine.createSpyObj('stream', ['stop', 'getVideoTracks']);
+      }
 
       // createObjectURL throws a Type Error if passed a spy
       var vendorURL = window.URL || window.webkitURL;
@@ -94,7 +124,13 @@ describe('Directive: webcam', function () {
 
     beforeEach(function() {
       var args = mediaSpy.mostRecentCall.args;
-      args[1](streamSpy); // call success function
+      var successFunction = args[1]; // call success function
+
+      if (hasModernUserMedia) {
+        successFunction = promiseThenSpy.then.mostRecentCall.args[0];
+      }
+
+      successFunction(streamSpy);
     });
 
     it('should play the video element', function() {
@@ -114,13 +150,15 @@ describe('Directive: webcam', function () {
 
     describe('scope destruction', function() {
       beforeEach(function() {
-        expect(video.src).toBeTruthy(); // non-empty string
+        if (!hasModernUserMedia) { expect(video.src).toBeTruthy(); }
+        else { expect(video.srcObject).toBeTruthy(); }
+
         element.scope().$destroy();
       });
 
       it('should stop the video stream using video tracks', function () {
-          expect(streamSpy.getVideoTracks).toHaveBeenCalled();
-        });
+        expect(streamSpy.getVideoTracks).toHaveBeenCalled();
+      });
 
       it('should clear the video element src', function() {
         runs(function() { expect(video.src).toBeFalsy(); }); // empty or null
@@ -142,7 +180,13 @@ describe('Directive: webcam', function () {
 
     beforeEach(function() {
       var args = mediaSpy.mostRecentCall.args;
-      args[2]('Fake Error'); // call failure function
+      var errorFunction = args[2]; // call failure function
+
+      if (hasModernUserMedia) {
+        errorFunction = promiseCatchSpy.catch.mostRecentCall.args[0];
+      }
+
+      errorFunction('Fake Error');
     });
 
     it('should not play the video element', function() {
