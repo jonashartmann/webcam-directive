@@ -1,7 +1,9 @@
 language: node_js
 node_js:
-  - "10.15.0"
-  - "5"
-  - "4"
+  - "10"
+  - "9"
+  - "8"
+  - "7"
+  - "6"
 before_install:
   - npm install -g npm@~1.4.28
