@@ -4,25 +4,30 @@
   "version": "3.2.1",
   "license": "MIT",
   "main": "app/scripts/webcam.js",
-  "type": "module",
-  "dependencies": {},
   "devDependencies": {
-    "@rollup/plugin-babel": "^6.0.4",
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@rollup/plugin-babel": "^6.1.0",
+    "@rollup/plugin-commonjs": "^25.0.8",
+    "@rollup/plugin-node-resolve": "^15.3.1",
     "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-node-resolve": "^15.2.1",
+    "jasmine-core": "^5.13.0",
+    "karma": "^6.4.4",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-jasmine": "^5.1.0",
+    "karma-rollup-preprocessor": "^7.0.8",
     "rollup": "^4.12.0",
-    "@babel/core": "^7.24.0",
-    "@babel/preset-env": "^7.24.0"
+    "angular": "1.3.7",
+    "angular-mocks": "1.3.7"
   },
   "peerDependencies": {
-    "angular": ">=1.5.0"
+    "angular": "1.3.7"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "",
+    "test": "karma start",
     "build": "rollup -c"
   },
   "repository": "git@github.com:jonashartmann/webcam-directive.git"
