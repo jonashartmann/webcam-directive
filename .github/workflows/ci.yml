@@ -12,17 +12,18 @@ on:
           - '20'
           - '22'
           - '24'
-
+  pull_request:
+    branches: [ master ]
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
-    - name: Use Node.js ${{ inputs.node-version }}
+    - name: Use Node.js ${{ inputs.node-version || '24' }}
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ inputs.node-version }}
+        node-version: ${{ inputs.node-version || '24' }}
         cache: 'npm'
     - run: npm ci
     - run: npm test
