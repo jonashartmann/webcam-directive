@@ -1,5 +1,4 @@
-# Webcam manipulation with HTML5
-
+# Webcam manipulation with HTML5 [![CI](https://github.com/jonashartmann/webcam-directive/actions/workflows/ci.yml/badge.svg)](https://github.com/jonashartmann/webcam-directive/actions/workflows/ci.yml)
 An [AngularJS][] directive to manipulate the webcam.
 
 You can easily add it as a module to your own app.
