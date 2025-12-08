@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      node-version:
+        description: 'Node version to build with'
+        required: false
+        default: '24'
+        type: choice
+        options:
+          - '20'
+          - '22'
+          - '24'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm test
+    - run: npm run build
