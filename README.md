@@ -2,8 +2,6 @@
 
 An [AngularJS][] directive to manipulate the webcam.
 
-[![Build Status](https://travis-ci.org/jonashartmann/webcam-directive.png?branch=master)](https://travis-ci.org/jonashartmann/webcam-directive)
-
 You can easily add it as a module to your own app.
 
 A complete example can be found at [http://jonashartmann.github.io/webcam-directive](http://jonashartmann.github.io/webcam-directive) (*gh-pages*)
@@ -86,22 +84,25 @@ function MyController($scope) {
 
 1. Fork and clone this repository
 2. Install dependencies
+```shell
+npm install
+```
 
-    npm install
-3. Build/test with grunt
+3. Build/test with karma
 
-    grunt test
-4. Make a Pull Request (it will only be merged if it passes the Travis build)
+Ensure you have Chromium installed with CHROMIUM_BIN set to its path
+```shell
+npm run test
+```
+
+4. Make a Pull Request 
+
+**Recommended: Test locally,** as
+_it will only be merged if it builds successfully._
 
 Or just help by creating issues.
 
-## Technologies used in this project
-
-- [AngularJS][]
-- [Yeoman](http://yeoman.io/)
-- [getUserMedia](https://developer.mozilla.org/en-US/docs/WebRTC/navigator.getUserMedia)
-- [canvas](https://developer.mozilla.org/en-US/docs/HTML/Canvas)
-- [video](https://developer.mozilla.org/en-US/docs/HTML/Element/video)
+## License
 
 The code is licensed under the MIT License. @see LICENSE file
 

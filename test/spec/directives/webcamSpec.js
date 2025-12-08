@@ -2,209 +2,195 @@
 describe('Directive: webcam', function () {
   'use strict';
 
-  var ua = navigator.userAgent,
-      phantomjs = /phantom/i.test(ua),
-      hasModernUserMedia = 'mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices;
+  const hasModernUserMedia =
+    'mediaDevices' in navigator &&
+    typeof navigator.mediaDevices.getUserMedia === 'function';
 
-  if (phantomjs) {
-    console.log('PhantomJS detected; video.play will be mocked');
-  }
+  let element,
+    mediaSpy,
+    promiseThenSpy,
+    promiseCatchSpy,
+    onStreamSpy,
+    onErrorSpy,
+    onSuccessSpy,
+    rootScope;
 
-  var element,
-      mediaSpy,
-      promiseThenSpy,
-      promiseCatchSpy,
-      onStreamSpy,
-      onErrorSpy,
-      onSuccessSpy,
-      rootScope;
+  beforeEach(angular.mock.module('webcam'));
 
-  beforeEach(module('webcam'));
+  beforeEach(function () {
+    onStreamSpy = jasmine.createSpy('onStreamSpy');
+    onErrorSpy = jasmine.createSpy('onErrorSpy');
+    onSuccessSpy = jasmine.createSpy('onSuccessSpy');
 
-  beforeEach(function createSpy () {
     if (hasModernUserMedia) {
       promiseCatchSpy = {
         catch: jasmine.createSpy('promiseCatchSpy')
       };
 
       promiseThenSpy = {
-        then: jasmine.createSpy('promiseThenSpy').andReturn(promiseCatchSpy),
+        then: jasmine.createSpy('promiseThenSpy').and.returnValue(promiseCatchSpy)
       };
-      navigator.getMedia = mediaSpy = jasmine.createSpy('getMediaSpy').andReturn(promiseThenSpy);
+
+      navigator.getMedia = mediaSpy = jasmine
+        .createSpy('getMediaSpy')
+        .and.returnValue(promiseThenSpy);
     } else {
       navigator.getMedia = mediaSpy = jasmine.createSpy('getMediaSpy');
     }
-
-    onStreamSpy = jasmine.createSpy('onStreamSpy');
-    onErrorSpy = jasmine.createSpy('onErrorSpy');
-    onSuccessSpy = jasmine.createSpy('onSuccessSpy');
   });
 
   beforeEach(inject(function ($rootScope, $compile) {
-    $rootScope.opts = {
-      // video: null
-    };
+    $rootScope.opts = {};
     $rootScope.onStream = onStreamSpy;
     $rootScope.onError = onErrorSpy;
     $rootScope.onSuccess = onSuccessSpy;
     rootScope = $rootScope;
+
     element = angular.element(
-      '<webcam '+
-      'on-stream="onStream(stream)" '+
-      'on-error="onError(err)" '+
-      'on-streaming="onSuccess()" '+
-      'channel="opts"' +
-      'placeholder="\'http://www.example.com/\'">'+
-      '</webcam>');
+      '<webcam ' +
+      'on-stream="onStream(stream)" ' +
+      'on-error="onError(err)" ' +
+      'on-streaming="onSuccess()" ' +
+      'channel="opts" ' +
+      'placeholder="\'http://www.example.com/\'">' +
+      '</webcam>'
+    );
+
     element = $compile(element)($rootScope);
+    $rootScope.$digest();
+
     expect(element).not.toBe(null);
   }));
 
-  it('should get only video media from the navigator',
-    function() {
-      expect(mediaSpy).toHaveBeenCalled();
-      var args = mediaSpy.mostRecentCall.args;
-      expect(args[0]).not.toBeNull();
-      expect(args[0].video).toBeTruthy();
-      expect(args[0].audio).toBeFalsy(); // Needs to be changed if audio support is added
+  it('should request only video media', function () {
+    expect(mediaSpy).toHaveBeenCalled();
 
-      if (!hasModernUserMedia) {
-        expect(typeof args[1]).toBe('function');
-        expect(typeof args[2]).toBe('function');
-      } else {
-        expect(promiseThenSpy.then).toHaveBeenCalled();
-        args = promiseThenSpy.then.mostRecentCall.args;
-        expect(typeof args[0]).toBe('function');
-        expect(promiseCatchSpy.catch).toHaveBeenCalled();
-        args = promiseCatchSpy.catch.mostRecentCall.args;
-        expect(typeof args[0]).toBe('function');
-      }
+    let args = mediaSpy.calls.mostRecent().args;
+    expect(args[0]).not.toBeNull();
+    expect(args[0].video).toBeTruthy();
+    expect(args[0].audio).toBeFalsy();
+
+    if (!hasModernUserMedia) {
+      expect(typeof args[1]).toBe('function');
+      expect(typeof args[2]).toBe('function');
+    } else {
+      expect(promiseThenSpy.then).toHaveBeenCalled();
+      args = promiseThenSpy.then.calls.mostRecent().args;
+      expect(typeof args[0]).toBe('function');
+      expect(promiseCatchSpy.catch).toHaveBeenCalled();
+      expect(typeof promiseCatchSpy.catch.calls.mostRecent().args[0]).toBe('function');
     }
-  );
+  });
 
   it('should create a video element', function () {
-    var video = element.find('video');
+    const video = element.find('video');
     expect(video.length).toBe(1);
     expect(video[0].getAttribute('class')).toBe('webcam-live');
     expect(video[0].getAttribute('autoplay')).toBe('');
   });
 
-  it('should create an image for the placeholder',
-    function() {
-      var image = element.find('img');
-      expect(image.length).toBe(1);
-      expect(image[0].getAttribute('src')).toBe('http://www.example.com/');
-      expect(image[0].getAttribute('class')).toBe('webcam-loader');
-    }
-  );
+  it('should create an image placeholder', function () {
+    const image = element.find('img');
+    expect(image.length).toBe(1);
+    expect(image[0].src).toBe('http://www.example.com/');
+    expect(image[0].getAttribute('class')).toBe('webcam-loader');
+  });
 
   describe('on success', function () {
-    var video,
-        streamSpy;
+    let video, streamSpy;
 
     beforeEach(function () {
       video = element.find('video')[0];
-      if (phantomjs) { // phantomjs doesn't support video
-        video.play = jasmine.createSpy('play');
-      } else {
-        spyOn(video, 'play');
-      }
 
-      if (!!window.MediaStream) {
+      // Mock video.play
+      spyOn(video, 'play').and.callFake(function () { });
+
+      // Mock stream
+      if (window.MediaStream) {
         streamSpy = new window.MediaStream();
-        spyOn(streamSpy, 'getVideoTracks');
+        spyOn(streamSpy, 'getVideoTracks').and.returnValue([{ stop: jasmine.createSpy('stop') }]);
       } else {
         streamSpy = jasmine.createSpyObj('stream', ['stop', 'getVideoTracks']);
       }
 
-      // createObjectURL throws a Type Error if passed a spy
-      var vendorURL = window.URL || window.webkitURL;
-      spyOn(vendorURL, 'createObjectURL').andReturn('abc');
+      const vendorURL = window.URL || window.webkitURL;
+      spyOn(vendorURL, 'createObjectURL').and.returnValue('abc');
     });
 
-    beforeEach(function() {
-      var args = mediaSpy.mostRecentCall.args;
-      var successFunction = args[1]; // call success function
+    beforeEach(function () {
+      let successFn;
 
       if (hasModernUserMedia) {
-        successFunction = promiseThenSpy.then.mostRecentCall.args[0];
+        successFn = promiseThenSpy.then.calls.mostRecent().args[0];
+      } else {
+        successFn = mediaSpy.calls.mostRecent().args[1];
       }
 
-      successFunction(streamSpy);
+      successFn(streamSpy);
     });
 
-    it('should play the video element', function() {
+    it('should play the video', function () {
       expect(video.play).toHaveBeenCalled();
     });
 
-    it('should make the video element available for the parent scope',
-      function () {
-      expect(rootScope.opts.video).not.toBeUndefined();
-      expect(rootScope.opts.video).not.toBeNull();
+    it('should expose the video in parent scope', function () {
       expect(rootScope.opts.video).toBe(video);
     });
 
-    it('should call the stream callback', function() {
+    it('should call stream callback', function () {
       expect(onStreamSpy).toHaveBeenCalledWith(streamSpy);
     });
 
-    describe('scope destruction', function() {
-      beforeEach(function() {
-        if (!hasModernUserMedia) { expect(video.src).toBeTruthy(); }
-        else { expect(video.srcObject).toBeTruthy(); }
-
+    describe('on scope destroy', function () {
+      beforeEach(function () {
         element.scope().$destroy();
       });
 
-      it('should stop the video stream using video tracks', function () {
+      it('should stop video tracks', function () {
         expect(streamSpy.getVideoTracks).toHaveBeenCalled();
       });
 
-      it('should clear the video element src', function() {
-        runs(function() { expect(video.src).toBeFalsy(); }); // empty or null
+      it('should clear video src', function () {
+        expect(video.src).toBeFalsy();
       });
     });
   });
 
   describe('on failure', function () {
-    var video;
+    let video;
 
     beforeEach(function () {
       video = element.find('video')[0];
-      if (phantomjs) { // phantomjs doesn't support video
-        video.play = jasmine.createSpy('play');
-      } else {
-        spyOn(video, 'play').andCallThrough();
-      }
+      spyOn(video, 'play').and.callThrough();
     });
 
-    beforeEach(function() {
-      var args = mediaSpy.mostRecentCall.args;
-      var errorFunction = args[2]; // call failure function
+    beforeEach(function () {
+      let errorFn;
 
       if (hasModernUserMedia) {
-        errorFunction = promiseCatchSpy.catch.mostRecentCall.args[0];
+        errorFn = promiseCatchSpy.catch.calls.mostRecent().args[0];
+      } else {
+        errorFn = mediaSpy.calls.mostRecent().args[2];
       }
 
-      errorFunction('Fake Error');
+      errorFn('Fake Error');
     });
 
-    it('should not play the video element', function() {
+    it('should not play the video', function () {
       expect(video.play).not.toHaveBeenCalled();
     });
 
-    it('should remove the placeholder', function () {
-      var image = element.find('img');
+    it('should remove placeholder image', function () {
+      const image = element.find('img');
       expect(image.length).toBe(0);
     });
 
-    it('should call the error callback', function () {
-      expect(onErrorSpy).toHaveBeenCalled();
-      expect(onErrorSpy.mostRecentCall.args[0]).toBe('Fake Error');
+    it('should call error callback', function () {
+      expect(onErrorSpy).toHaveBeenCalledWith('Fake Error');
     });
   });
 
-  describe('without user media support', function() {
+  describe('without user media support', function () {
 
     beforeEach(function () {
       navigator.getMedia = false;
@@ -214,24 +200,26 @@ describe('Directive: webcam', function () {
       $rootScope.onStream = onStreamSpy;
       $rootScope.onError = onErrorSpy;
       $rootScope.onSuccess = onSuccessSpy;
+
       element = angular.element(
-        '<webcam '+
-        'on-stream="onStream(stream,video)" '+
-        'on-error="onError(err)" '+
-        'on-streaming="onSuccess(video)" '+
-        'placeholder="\'http://www.example.com/\'">'+
-        '</webcam>');
+        '<webcam ' +
+        'on-stream="onStream(stream,video)" ' +
+        'on-error="onError(err)" ' +
+        'on-streaming="onSuccess(video)" ' +
+        'channel="opts" ' +
+        'placeholder="\'http://www.example.com/\'">' +
+        '</webcam>'
+      );
+
       element = $compile(element)($rootScope);
+      $rootScope.$digest();
       expect(element).not.toBe(null);
     }));
 
-    it('should call the failure callback',
-      function() {
-        expect(onErrorSpy).toHaveBeenCalled();
-        expect(onErrorSpy.mostRecentCall.args[0]).not.toBeNull();
-        expect(onErrorSpy.mostRecentCall.args[0].code).toBe(-1);
-      }
-    );
+    it('should call failure callback', function () {
+      expect(onErrorSpy).toHaveBeenCalled();
+      const err = onErrorSpy.calls.mostRecent().args[0];
+      expect(err.code).toBe(-1);
+    });
   });
-
 });
